@@ -16,7 +16,6 @@
         "symfony/validator": "^4.2",
         "yawa20/registry-bundle": "^1.0",
         "doctrine/orm": "^2.6",
-        "gepur-it/rabbitmq-bundle": "^2.0",
         "symfony/doctrine-bridge": "^4.2",
         "gepur-it/user": "^1.2"
     },
