@@ -1,0 +1,19 @@
+services:
+  GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarker:
+    autowire: true
+  GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface:
+    alias: GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarker
+  GepurIt\CallTaskBundle\CallTaskSource\CallTaskProvider:
+    autowire: true
+  GepurIt\CallTaskBundle\CallTaskSource\SourceToManagerRelationProvider:
+    autowire: true
+  GepurIt\CallTaskBundle\ActionProcessor\BaseActionProcessor:
+    autowire: true
+  GepurIt\CallTaskBundle\ActionProcessor\BaseActionProcessorInterface:
+    alias: GepurIt\CallTaskBundle\ActionProcessor\BaseActionProcessor
+  GepurIt\CallTaskBundle\ActionProcessor\ActionProcessorRegistry:
+    autowire: true
+  GepurIt\CallTaskBundle\TaskPresenter\TaskPresenterRegistry:
+    autowire: true
+  GepurIt\CallTaskBundle\Dynamic\DynamicSourceProviderRegistry:
+     autowire: true
