@@ -4,17 +4,18 @@
  * @since : 25.07.18
  */
 
-namespace GepurIt\CallTaskBundle\Tests\Stubs;
+namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
-use GepurIt\CallTaskBundle\CallTaskSource\ConcreteCallTaskTypeProviderInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
 use GepurIt\User\Security\User;
 
 /**
  * Class ConcreteTestProvider
- * @package GepurIt\CallTaskBundle\Tests\Stubs
+ * @package GepurIt\ErpTaskBundle\Tests\Stubs
  */
-class ConcreteTestProvider implements ConcreteCallTaskTypeProviderInterface
+class ConcreteTestProvider implements TaskProviderInterface
 {
     /**
      * @return string
@@ -27,11 +28,11 @@ class ConcreteTestProvider implements ConcreteCallTaskTypeProviderInterface
     /**
      * @param string $taskId
      *
-     * @return CallTaskInterface|null
+     * @return ErpTaskInterface|null
      */
-    public function find(string $taskId): ?CallTaskInterface
+    public function find(string $taskId): ?ErpTaskInterface
     {
-        return new TestCallTask($taskId);
+        return new TestErpTask($taskId);
     }
 
     /**
@@ -80,5 +81,15 @@ class ConcreteTestProvider implements ConcreteCallTaskTypeProviderInterface
     {
         // TODO: Implement findOpenedByClientId() method.
         return [];
+    }
+
+    public function getSource(string $name): TaskProducerInterface
+    {
+        // TODO: Implement getSource() method.
+    }
+
+    public function getSources(): array
+    {
+        // TODO: Implement getSources() method.
     }
 }

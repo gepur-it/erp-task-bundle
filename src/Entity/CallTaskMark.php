@@ -4,14 +4,14 @@
  * @since: 15.05.18
  */
 
-namespace GepurIt\CallTaskBundle\Entity;
+namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
+use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
 
 /**
  * Class TaskMark
- * @package GepurIt\CallTaskBundle\Entity
+ * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="call_task_mark",
@@ -21,7 +21,7 @@ use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
  *     }
  * )
  * @ORM\Entity(
- *     repositoryClass="GepurIt\CallTaskBundle\Repository\CallTaskMarkRepository",
+ *     repositoryClass="\GepurIt\ErpTaskBundle\Repository\ErpTaskMarkRepository",
  * )
  * @codeCoverageIgnore
  */

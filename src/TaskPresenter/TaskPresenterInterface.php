@@ -6,13 +6,13 @@
  * Time: 15:39
  */
 
-namespace GepurIt\CallTaskBundle\TaskPresenter;
+namespace GepurIt\ErpTaskBundle\TaskPresenter;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Interface TaskPresenterInterface
- * @package GepurIt\CallTaskBundle\TaskPresenterRegistry
+ * @package GepurIt\ErpTaskBundle\TaskPresenterRegistry
  */
 interface TaskPresenterInterface
 {
@@ -22,14 +22,16 @@ interface TaskPresenterInterface
     public function getType(): string;
 
     /**
-     * @param CallTaskInterface $callTask
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     *
      * @return mixed
      */
-    public function present(CallTaskInterface $callTask);
+    public function present(ErpTaskInterface $callTask);
 
     /**
-     * @param CallTaskInterface $callTask
+     * @param ErpTaskInterface $callTask
+     *
      * @return TaskListItemPresentationInterface
      */
-    public function presentForList(CallTaskInterface $callTask): TaskListItemPresentationInterface;
+    public function presentForList(ErpTaskInterface $callTask): TaskListItemPresentationInterface;
 }

@@ -4,10 +4,10 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\Repository;
+namespace GepurIt\ErpTaskBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use GepurIt\CallTaskBundle\Entity\ManagerHasTaskProducer;
+use GepurIt\ErpTaskBundle\Entity\ManagerHasTaskProducer;
 
 /**
  * Class SourceToUserRelationRepository
@@ -16,7 +16,7 @@ use GepurIt\CallTaskBundle\Entity\ManagerHasTaskProducer;
  * @method ManagerHasTaskProducer|null find($id, $lockMode = null, $lockVersion = null)
  * @codeCoverageIgnore
  */
-class ManagerHasCTRRepository extends EntityRepository
+class ManagerHasProducerRepository extends EntityRepository
 {
     /**
      * @param string $userId

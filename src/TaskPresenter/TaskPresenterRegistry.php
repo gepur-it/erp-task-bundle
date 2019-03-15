@@ -6,13 +6,13 @@
  * Time: 12:40
  */
 
-namespace GepurIt\CallTaskBundle\TaskPresenter;
+namespace GepurIt\ErpTaskBundle\TaskPresenter;
 
 use Yawa20\RegistryBundle\Registry\SimpleRegistry;
 
 /**
  * Class TaskPresenterRegistry
- * @package GepurIt\CallTaskBundle\TaskPresenterRegistry
+ * @package GepurIt\ErpTaskBundle\TaskPresenterRegistry
  * @method TaskPresenterInterface[] all(): array
  * @method TaskPresenterInterface get(string $key): TaskPresenterInterface
  */

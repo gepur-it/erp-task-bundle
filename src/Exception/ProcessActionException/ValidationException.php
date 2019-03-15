@@ -4,16 +4,16 @@
  * @since : 07.12.18
  */
 
-namespace GepurIt\CallTaskBundle\Exception\ProcessActionException;
+namespace GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
-use GepurIt\CallTaskBundle\Exception\ProcessActionException;
+use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Throwable;
 
 /**
  * Class ValidationException
- * @package GepurIt\CallTaskBundle\Exception
+ * @package GepurIt\ErpTaskBundle\Exception
  */
 class ValidationException extends ProcessActionException
 {

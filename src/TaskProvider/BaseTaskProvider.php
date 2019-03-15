@@ -4,23 +4,23 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\CallTaskSource;
+namespace GepurIt\ErpTaskBundle\TaskProvider;
 
 use Doctrine\ORM\EntityManagerInterface;
-use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
-use GepurIt\CallTaskBundle\Contract\TaskProducerInterface;
-use GepurIt\CallTaskBundle\Contract\TaskProviderInterface;
-use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
-use GepurIt\CallTaskBundle\Entity\ManagerHasTaskProducer;
-use GepurIt\CallTaskBundle\Entity\SourceTemplate;
-use GepurIt\CallTaskBundle\Event\ErpTaskWasTakenEvent;
-use GepurIt\CallTaskBundle\Repository\ManagerHasProducerRepository;
-use GepurIt\CallTaskBundle\Repository\ProducerTemplateRepository;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
+use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
+use GepurIt\ErpTaskBundle\Entity\ManagerHasTaskProducer;
+use GepurIt\ErpTaskBundle\Entity\ProducersTemplate;
+use GepurIt\ErpTaskBundle\Event\ErpTaskWasTakenEvent;
+use GepurIt\ErpTaskBundle\Repository\ManagerHasProducerRepository;
+use GepurIt\ErpTaskBundle\Repository\ProducerTemplateRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class CallTaskProvider
- * @package CallTaskBundle
+ * @package ErpTaskBundle
  */
 class BaseTaskProvider
 {
@@ -61,7 +61,7 @@ class BaseTaskProvider
     public function getUserTemplateSources(string $userId)
     {
         /** @var ProducerTemplateRepository $repo */
-        $repo     = $this->entityManager->getRepository(SourceTemplate::class);
+        $repo     = $this->entityManager->getRepository(ProducersTemplate::class);
         $template = $repo->findOneByUserId($userId);
         if (null === $template) {
             $template = $repo->getDefault();

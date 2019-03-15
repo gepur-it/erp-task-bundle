@@ -4,18 +4,18 @@
  * @since : 31.07.18
  */
 
-namespace GepurIt\CallTaskBundle\Exception;
+namespace GepurIt\ErpTaskBundle\Exception;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Class MarkNotFoundException
- * @package GepurIt\CallTaskBundle\Exception
+ * @package GepurIt\ErpTaskBundle\Exception
  * @codeCoverageIgnore
  */
 class TaskMarkNotFoundException extends CallTaskException
 {
-    public function __construct(CallTaskInterface $callTask)
+    public function __construct(ErpTaskInterface $callTask)
     {
         $message = "Task {$callTask->getType()}:{$callTask->getTaskId()} not marked";
         return parent::__construct($message);

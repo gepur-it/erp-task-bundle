@@ -4,14 +4,13 @@
  * @since : 25.07.18
  */
 
-namespace GepurIt\CallTaskBundle\CallTaskSource;
+namespace GepurIt\ErpTaskBundle\Contract;
 
-use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\User\Security\User;
 
 /**
  * Class TaskProviderInterface
- * @package GepurIt\CallTaskBundle\CallTaskSource
+ * @package GepurIt\ErpTaskBundle\CallTaskSource
  */
 interface TaskProviderInterface
 {
@@ -23,7 +22,7 @@ interface TaskProviderInterface
     /**
      * @param string $taskId
      *
-     * @return \GepurIt\CallTaskBundle\Contract\ErpTaskInterface|null
+     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|null
      */
     public function find(string $taskId): ?ErpTaskInterface;
 

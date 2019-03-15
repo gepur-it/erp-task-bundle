@@ -4,18 +4,16 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\CallTaskSource;
-
-use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
+namespace GepurIt\ErpTaskBundle\Contract;
 
 /**
  * Interface CallTaskSourceInterface
- * @package GepurIt\CallTaskBundle\CallTaskSource
+ * @package GepurIt\ErpTaskBundle\CallTaskSource
  */
 interface TaskProducerInterface
 {
     /**
-     * @return \GepurIt\CallTaskBundle\Contract\ErpTaskInterface|null
+     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|null
      */
     public function getNext(): ?ErpTaskInterface;
 

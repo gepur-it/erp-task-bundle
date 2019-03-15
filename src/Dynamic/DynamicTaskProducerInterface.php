@@ -6,16 +6,16 @@
  * Time: 11:52
  */
 
-namespace GepurIt\CallTaskBundle\Dynamic;
+namespace GepurIt\ErpTaskBundle\Dynamic;
 
 use Doctrine\ORM\EntityManagerInterface;
-use GepurIt\CallTaskBundle\CallTaskSource\SourceInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
 
 /**
  * Interface DynamicSourceInterface
- * @package GepurIt\CallTaskBundle\Dynamic
+ * @package GepurIt\ErpTaskBundle\Dynamic
  */
-interface DynamicSourceInterface extends SourceInterface
+interface DynamicTaskProducerInterface extends TaskProducerInterface
 {
     /**
      * @param EntityManagerInterface $entityManager

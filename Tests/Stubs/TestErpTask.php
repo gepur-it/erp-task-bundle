@@ -6,15 +6,15 @@
  * Time: 10:46
  */
 
-namespace GepurIt\CallTaskBundle\Tests\Stubs;
+namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Class TestCallTask
- * @package GepurIt\CallTaskBundle\Tests\Stubs
+ * @package GepurIt\ErpTaskBundle\Tests\Stubs
  */
-class TestCallTask implements CallTaskInterface
+class TestErpTask implements ErpTaskInterface
 {
     const TYPE = 'test';
 

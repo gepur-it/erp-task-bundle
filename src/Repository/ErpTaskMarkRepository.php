@@ -4,23 +4,23 @@
  * @since : 15.05.18
  */
 
-namespace GepurIt\CallTaskBundle\Repository;
+namespace GepurIt\ErpTaskBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
-use GepurIt\CallTaskBundle\Entity\CallTaskMark;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\Entity\CallTaskMark;
 
 /**
  * Class CallTaskMarkRepository
- * @package GepurIt\CallTaskBundle\Repository
+ * @package GepurIt\ErpTaskBundle\Repository
  * @method CallTaskMark|null findOneBy(array $criteria, array $orderBy = null)
  * @method CallTaskMark|null find($id, $lockMode = null, $lockVersion = null)
  * @method CallTaskMark[] findAll()
  * @method CallTaskMark[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @codeCoverageIgnore
  */
-class CallTaskMarkRepository extends EntityRepository
+class ErpTaskMarkRepository extends EntityRepository
 {
     /**
      * @param string $userId
@@ -84,7 +84,7 @@ class CallTaskMarkRepository extends EntityRepository
     }
 
     /**
-     * @param \GepurIt\CallTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
      *
      * @return CallTaskMark|null
      */

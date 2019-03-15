@@ -4,13 +4,13 @@
  * @since : 26.02.19
  */
 
-namespace GepurIt\CallTaskBundle\Exception\ProcessActionException;
+namespace GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
-use GepurIt\CallTaskBundle\Exception\ProcessActionException;
+use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
 /**
  * Class LockedByAnotherUserException
- * @package GepurIt\CallTaskBundle\Exception\ProcessActionException
+ * @package GepurIt\ErpTaskBundle\Exception\ProcessActionException
  */
 class LockedByAnotherUserException extends ProcessActionException
 {

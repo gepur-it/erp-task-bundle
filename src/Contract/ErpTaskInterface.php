@@ -4,11 +4,11 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\CallTask;
+namespace GepurIt\ErpTaskBundle\Contract;
 
 /**
  * Interface CallTaskInterface
- * @package GepurIt\CallTaskBundle\CallTask
+ * @package GepurIt\ErpTaskBundle\CallTask
  */
 interface ErpTaskInterface
 {

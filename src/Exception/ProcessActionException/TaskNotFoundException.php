@@ -4,13 +4,13 @@
  * @since : 26.02.19
  */
 
-namespace GepurIt\CallTaskBundle\Exception\ProcessActionException;
+namespace GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
-use GepurIt\CallTaskBundle\Exception\ProcessActionException;
+use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
 /**
  * Class TaskNotFoundException
- * @package GepurIt\CallTaskBundle\Exception
+ * @package GepurIt\ErpTaskBundle\Exception
  */
 class TaskNotFoundException extends ProcessActionException
 {

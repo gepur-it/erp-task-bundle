@@ -6,11 +6,11 @@
  * Time: 16:40
  */
 
-namespace GepurIt\CallTaskBundle\Exception;
+namespace GepurIt\ErpTaskBundle\Exception;
 
 /**
  * Class ProcessActionException
- * @package GepurIt\CallTaskBundle\Exception
+ * @package GepurIt\ErpTaskBundle\Exception
  */
 class ProcessActionException extends CallTaskException
 {

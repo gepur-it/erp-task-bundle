@@ -4,16 +4,16 @@
  * @since : 28.02.19
  */
 
-namespace GepurIt\CallTaskBundle\Dynamic;
+namespace GepurIt\ErpTaskBundle\Dynamic;
 
 /**
  * Class DynamicSourceProviderInterface
- * @package GepurIt\CallTaskBundle\Dynamic
+ * @package GepurIt\ErpTaskBundle\Dynamic
  */
 interface DynamicSourceProviderInterface
 {
     /**
-     * @return DynamicSourceInterface[]
+     * @return DynamicTaskProducerInterface[]
      */
     public function getSources(): array;
 }

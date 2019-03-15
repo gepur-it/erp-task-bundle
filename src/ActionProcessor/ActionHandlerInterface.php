@@ -4,13 +4,13 @@
  * @since : 26.07.18
  */
 
-namespace GepurIt\CallTaskBundle\ActionProcessor;
+namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Class ActionHandlerInterface
- * @package GepurIt\CallTaskBundle\ActionProcessor
+ * @package GepurIt\ErpTaskBundle\ActionProcessor
  */
 interface ActionHandlerInterface
 {
@@ -20,10 +20,10 @@ interface ActionHandlerInterface
     public function getSupportedAction(): string;
 
     /**
-     * @param ActionInterface   $action
-     * @param CallTaskInterface $callTask
+     * @param ActionInterface                                   $action
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
      *
      * @return ActionInterface
      */
-    public function handle(ActionInterface $action, CallTaskInterface $callTask): ActionInterface;
+    public function handle(ActionInterface $action, ErpTaskInterface $callTask): ActionInterface;
 }

@@ -4,11 +4,11 @@
  * @since: 18.05.18
  */
 
-namespace GepurIt\CallTaskBundle\Exception;
+namespace GepurIt\ErpTaskBundle\Exception;
 
 /**
  * Class CallTaskException
- * @package GepurIt\CallTaskBundle\Exception
+ * @package GepurIt\ErpTaskBundle\Exception
  * @codeCoverageIgnore
  */
 class CallTaskException extends \RuntimeException

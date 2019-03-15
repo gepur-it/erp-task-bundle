@@ -4,30 +4,30 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\Event;
+namespace GepurIt\ErpTaskBundle\Event;
 
-use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class CallTaskWasLockedEvent
- * @package GepurIt\CallTaskBundle\Event
+ * @package GepurIt\ErpTaskBundle\Event
  * @codeCoverageIgnore
  */
-class CallTaskWasTakenEvent extends Event
+class ErpTaskWasTakenEvent extends Event
 {
-    const EVENT_NAME = 'call_task_was_locked';
+    const EVENT_NAME = 'erp_task_was_taken';
 
     /** @var string */
     private $userId;
 
-    /** @var \GepurIt\CallTaskBundle\Contract\ErpTaskInterface */
+    /** @var \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface */
     private $callTask;
 
     /**
      * CallTaskWasTakenEvent constructor.
      *
-     * @param \GepurIt\CallTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
      * @param string                                            $userId
      */
     public function __construct(ErpTaskInterface $callTask, string $userId)
@@ -45,9 +45,9 @@ class CallTaskWasTakenEvent extends Event
     }
 
     /**
-     * @return \GepurIt\CallTaskBundle\Contract\ErpTaskInterface
+     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface
      */
-    public function getCallTask(): ErpTaskInterface
+    public function getTask(): ErpTaskInterface
     {
         return $this->callTask;
     }

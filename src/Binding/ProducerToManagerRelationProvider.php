@@ -4,16 +4,16 @@
  * @since : 26.02.19
  */
 
-namespace GepurIt\CallTaskBundle\CallTaskSource;
+namespace GepurIt\ErpTaskBundle\Binding;
 
 use Doctrine\ORM\EntityManagerInterface;
-use GepurIt\CallTaskBundle\Entity\ManagerHasTaskProducer;
-use GepurIt\CallTaskBundle\Repository\ManagerHasProducerRepository;
-use GepurIt\CallTaskBundle\TaskProvider\BaseTaskProvider;
+use GepurIt\ErpTaskBundle\Entity\ManagerHasTaskProducer;
+use GepurIt\ErpTaskBundle\Repository\ManagerHasProducerRepository;
+use GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider;
 
 /**
  * Class TaskToManagerRelationProvider
- * @package GepurIt\CallTaskBundle\CallTaskSource
+ * @package GepurIt\ErpTaskBundle\CallTaskSource
  */
 class ProducerToManagerRelationProvider
 {

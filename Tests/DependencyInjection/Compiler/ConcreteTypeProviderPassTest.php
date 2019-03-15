@@ -6,18 +6,18 @@
  * Time: 10:53
  */
 
-namespace GepurIt\CallTaskBundle\Tests\DependencyInjection\Compiler;
+namespace GepurIt\ErpTaskBundle\Tests\DependencyInjection\Compiler;
 
 
-use GepurIt\CallTaskBundle\DependencyInjection\Compiler\ConcreteTypeProviderPass;
-use GepurIt\CallTaskBundle\Tests\Stubs\ConcreteTestProvider;
+use GepurIt\ErpTaskBundle\DependencyInjection\Compiler\ConcreteTypeProviderPass;
+use GepurIt\ErpTaskBundle\Tests\Stubs\ConcreteTestProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * Class ConcreteTypeProviderPassTest
- * @package GepurIt\CallTaskBundle\Tests\DependencyInjection\Compiler
+ * @package GepurIt\ErpTaskBundle\Tests\DependencyInjection\Compiler
  */
 class ConcreteTypeProviderPassTest extends TestCase
 {

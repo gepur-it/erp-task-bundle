@@ -4,19 +4,19 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\Entity;
+namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class SourceToUserRelation
- * @package GepurIt\CallTaskBundle\Entity
+ * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="call_task_manager_has_cts")
- * @ORM\Entity(repositoryClass="GepurIt\CallTaskBundle\Repository\ManagerHasCTSRepository")
+ * @ORM\Entity(repositoryClass="\GepurIt\ErpTaskBundle\Repository\ManagerHasProducerRepository")
  * @codeCoverageIgnore
  */
-class ManagerHasCTS
+class ManagerHasTaskProducer
 {
     /**
      * @var string

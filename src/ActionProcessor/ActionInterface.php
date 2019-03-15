@@ -4,13 +4,13 @@
  * @since: 18.05.18
  */
 
-namespace GepurIt\CallTaskBundle\ActionProcessor;
+namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Class ActionInterface
- * @package GepurIt\CallTaskBundle\ActionProcessorRegistry
+ * @package GepurIt\ErpTaskBundle\ActionProcessorRegistry
  */
 interface ActionInterface
 {
@@ -20,7 +20,7 @@ interface ActionInterface
     public function getActionId():string;
 
     /**
-     * @return CallTaskInterface
+     * @return ErpTaskInterface
      */
     public function getTaskId(): string;
 

@@ -4,14 +4,14 @@
  * @since : 26.02.19
  */
 
-namespace GepurIt\CallTaskBundle\ActionProcessor;
+namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
-use GepurIt\CallTaskBundle\Exception\ProcessActionException;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
 /**
  * Class BaseActionProcessorInterface
- * @package GepurIt\CallTaskBundle\ActionProcessor
+ * @package GepurIt\ErpTaskBundle\ActionProcessor
  */
 interface BaseActionProcessorInterface
 {
@@ -25,7 +25,7 @@ interface BaseActionProcessorInterface
      *
      * @throws ProcessActionException
      *
-     * @return CallTaskInterface
+     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface
      */
     public function processAction(
         string $action,
@@ -34,5 +34,5 @@ interface BaseActionProcessorInterface
         string $userId,
         array $params,
         string $message = ''
-    ): CallTaskInterface;
+    ): ErpTaskInterface;
 }

@@ -4,24 +4,24 @@
  * @since : 10.07.18
  */
 
-namespace GepurIt\CallTaskBundle\Repository;
+namespace GepurIt\ErpTaskBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use GepurIt\CallTaskBundle\Entity\SourceTemplate;
+use GepurIt\ErpTaskBundle\Entity\ProducersTemplate;
 
 /**
- * Class SourceTemplateRepository
- * @package GepurIt\CallTaskBundle\Repository
- * @method SourceTemplate|null findOneBy(array $criteria, array $orderBy = null)
+ * Class ProducerTemplateRepository
+ * @package GepurIt\ErpTaskBundle\Repository
+ * @method ProducersTemplate|null findOneBy(array $criteria, array $orderBy = null)
  * @codeCoverageIgnore
  */
-class SourceTemplateRepository extends EntityRepository
+class ProducerTemplateRepository extends EntityRepository
 {
     /**
-     * @return SourceTemplate
+     * @return ProducersTemplate
      */
-    public function getDefault(): SourceTemplate
+    public function getDefault(): ProducersTemplate
     {
         $queryBuilder = $this->createQueryBuilder("source_template");
         $queryBuilder
@@ -29,7 +29,7 @@ class SourceTemplateRepository extends EntityRepository
             ->setMaxResults(1);
 
         try {
-            /** @var  SourceTemplate $result */
+            /** @var  ProducersTemplate $result */
             $result = $queryBuilder->getQuery()->getOneOrNullResult();
         } catch (NonUniqueResultException $exception) {
             //impossible case, cuz we use setMaxResults(1)
@@ -42,9 +42,9 @@ class SourceTemplateRepository extends EntityRepository
     /**
      * @param string $userId
      *
-     * @return SourceTemplate|null
+     * @return ProducersTemplate|null
      */
-    public function findOneByUserId(string $userId): ?SourceTemplate
+    public function findOneByUserId(string $userId): ?ProducersTemplate
     {
         $queryBuilder = $this->createQueryBuilder("source_template");
         $query        = $queryBuilder
@@ -54,7 +54,7 @@ class SourceTemplateRepository extends EntityRepository
             ->setMaxResults(1)
             ->getQuery();
 
-        /** @var SourceTemplate|null $result */
+        /** @var ProducersTemplate|null $result */
         try {
             $result = $query->getOneOrNullResult();
         } catch (NonUniqueResultException $e) {

@@ -6,43 +6,42 @@
  * Time: 10:20
  */
 
-namespace GepurIt\CallTaskBundle\Tests\CallTaskSource;
+namespace GepurIt\ErpTaskBundle\Tests\CallTaskSource;
 
 use Doctrine\ORM\EntityManagerInterface;
-use GepurIt\CallTaskBundle\CallTaskSource\CallTaskProvider;
-use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
-use GepurIt\CallTaskBundle\Dynamic\DynamicSourceProviderRegistry;
-use GepurIt\CallTaskBundle\Entity\CallTaskMark;
-use GepurIt\CallTaskBundle\Entity\ManagerHasCTS;
-use GepurIt\CallTaskBundle\Entity\SourceTemplate;
-use GepurIt\CallTaskBundle\Entity\SourceTemplateRelation;
-use GepurIt\CallTaskBundle\Repository\ManagerHasCTSRepository;
-use GepurIt\CallTaskBundle\Repository\SourceTemplateRepository;
-use GepurIt\CallTaskBundle\Tests\Stubs\ConcreteTestProvider;
-use GepurIt\CallTaskBundle\Tests\Stubs\TestCallTask;
-use GepurIt\CallTaskBundle\Tests\Stubs\TestSource;
-use GepurIt\CallTaskBundle\Tests\Stubs\TestSourceNullNext;
+use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
+use GepurIt\ErpTaskBundle\Entity\CallTaskMark;
+use GepurIt\ErpTaskBundle\Entity\ManagerHasTaskProducer;
+use GepurIt\ErpTaskBundle\Entity\ProducersTemplate;
+use GepurIt\ErpTaskBundle\Entity\ProducerTemplateRelation;
+use GepurIt\ErpTaskBundle\Repository\ManagerHasProducerRepository;
+use GepurIt\ErpTaskBundle\Repository\ProducerTemplateRepository;
+use GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider;
+use GepurIt\ErpTaskBundle\Tests\Stubs\ConcreteTestProvider;
+use GepurIt\ErpTaskBundle\Tests\Stubs\TestErpTask;
+use GepurIt\ErpTaskBundle\Tests\Stubs\TestSourceNullNext;
+use GepurIt\ErpTaskBundle\Tests\Stubs\TestTaskProducer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Yawa20\RegistryBundle\Exception\KeyNotFoundRegistryException;
 
 /**
  * Class CallTaskProviderTest
- * @package GepurIt\CallTaskBundle\Tests\CallTaskSource
+ * @package GepurIt\ErpTaskBundle\Tests\CallTaskSource
  */
 class CallTaskProviderTest extends TestCase
 {
     public function testGetSourcesByUserIdException()
     {
-        /**@var ManagerHasCTSRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
-        $hasCTSRepository = $this->createMock(ManagerHasCTSRepository::class);
-        /**@var ManagerHasCTS|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
-        $managerHasCTS = $this->createMock(ManagerHasCTS::class);
+        /**@var ManagerHasProducerRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
+        $hasCTSRepository = $this->createMock(ManagerHasProducerRepository::class);
+        /**@var ManagerHasTaskProducer|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
+        $managerHasCTS = $this->createMock(ManagerHasTaskProducer::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
-            ->with(ManagerHasCTS::class)
+            ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
 
         $callTaskProvider =$this->createCallTaskProviderWithMockArgs([
@@ -64,15 +63,15 @@ class CallTaskProviderTest extends TestCase
 
     public function testGetSourcesByUserId()
     {
-        /**@var ManagerHasCTSRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
-        $hasCTSRepository = $this->createMock(ManagerHasCTSRepository::class);
-        /**@var ManagerHasCTS|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
-        $managerHasCTS = $this->createMock(ManagerHasCTS::class);
+        /**@var ManagerHasProducerRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
+        $hasCTSRepository = $this->createMock(ManagerHasProducerRepository::class);
+        /**@var ManagerHasTaskProducer|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
+        $managerHasCTS = $this->createMock(ManagerHasTaskProducer::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
-            ->with(ManagerHasCTS::class)
+            ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
 
         $callTaskProvider = $this->createCallTaskProviderWithMockArgs([
@@ -83,7 +82,7 @@ class CallTaskProviderTest extends TestCase
             ->method('findByUser')
             ->willReturn([$managerHasCTS]);
 
-        $callTaskProvider->add(new TestSource());
+        $callTaskProvider->add(new TestTaskProducer());
 
         $managerHasCTS->expects($this->once())
             ->method('getSourceName')
@@ -91,20 +90,20 @@ class CallTaskProviderTest extends TestCase
 
         $result = $callTaskProvider->getSourcesByUserId('userId');
 
-        $this->assertInstanceOf(TestSource::class, array_shift($result));
+        $this->assertInstanceOf(TestTaskProducer::class, array_shift($result));
     }
 
     public function testGetNextTaskForUser()
     {
-        /**@var ManagerHasCTSRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
-        $hasCTSRepository = $this->createMock(ManagerHasCTSRepository::class);
-        /**@var ManagerHasCTS|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
-        $managerHasCTS = $this->createMock(ManagerHasCTS::class);
+        /**@var ManagerHasProducerRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
+        $hasCTSRepository = $this->createMock(ManagerHasProducerRepository::class);
+        /**@var ManagerHasTaskProducer|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
+        $managerHasCTS = $this->createMock(ManagerHasTaskProducer::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager->expects($this->at(0))
             ->method('getRepository')
-            ->with(ManagerHasCTS::class)
+            ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
 
         $callTaskProvider = $this->createCallTaskProviderWithMockArgs([
@@ -115,7 +114,7 @@ class CallTaskProviderTest extends TestCase
             ->method('findByUser')
             ->willReturn([$managerHasCTS]);
 
-        $callTaskProvider->add(new TestSource());
+        $callTaskProvider->add(new TestTaskProducer());
 
         $managerHasCTS->expects($this->once())
             ->method('getSourceName')
@@ -123,26 +122,26 @@ class CallTaskProviderTest extends TestCase
 
         $result = $callTaskProvider->determineNextTask('userId');
 
-        $this->assertInstanceOf(TestCallTask::class, $result);
+        $this->assertInstanceOf(TestErpTask::class, $result);
     }
 
     public function testGetNextTaskForUserByDefaultTemplate()
     {
-        /**@var ManagerHasCTSRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
-        $hasCTSRepository = $this->createMock(ManagerHasCTSRepository::class);
-        /** @var SourceTemplateRepository|\PHPUnit_Framework_MockObject_MockObject $templateRepository */
-        $templateRepository = $this->createMock(SourceTemplateRepository::class);
-        /**@var SourceTemplate|\PHPUnit_Framework_MockObject_MockObject $sourceTemplate */
-        $sourceTemplate = $this->createMock(SourceTemplate::class);
+        /**@var ManagerHasProducerRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
+        $hasCTSRepository = $this->createMock(ManagerHasProducerRepository::class);
+        /** @var ProducerTemplateRepository|\PHPUnit_Framework_MockObject_MockObject $templateRepository */
+        $templateRepository = $this->createMock(ProducerTemplateRepository::class);
+        /**@var ProducersTemplate|\PHPUnit_Framework_MockObject_MockObject $sourceTemplate */
+        $sourceTemplate = $this->createMock(ProducersTemplate::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager->expects($this->at(0))
             ->method('getRepository')
-            ->with(ManagerHasCTS::class)
+            ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
         $entityManager->expects($this->at(1))
             ->method('getRepository')
-            ->with(SourceTemplate::class)
+            ->with(ProducersTemplate::class)
             ->willReturn($templateRepository);
 
         $callTaskProvider = $this->createCallTaskProviderWithMockArgs([
@@ -170,23 +169,23 @@ class CallTaskProviderTest extends TestCase
 
     public function testGetNextTaskForUserByTemplate()
     {
-        /**@var ManagerHasCTSRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
-        $hasCTSRepository = $this->createMock(ManagerHasCTSRepository::class);
-        /** @var SourceTemplateRepository|\PHPUnit_Framework_MockObject_MockObject $templateRepository */
-        $templateRepository = $this->createMock(SourceTemplateRepository::class);
-        /**@var SourceTemplate|\PHPUnit_Framework_MockObject_MockObject $sourceTemplate */
-        $sourceTemplate = $this->createMock(SourceTemplate::class);
-        /**@var SourceTemplateRelation|\PHPUnit_Framework_MockObject_MockObject $templateRelation */
-        $templateRelation = $this->createMock(SourceTemplateRelation::class);
+        /**@var ManagerHasProducerRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
+        $hasCTSRepository = $this->createMock(ManagerHasProducerRepository::class);
+        /** @var ProducerTemplateRepository|\PHPUnit_Framework_MockObject_MockObject $templateRepository */
+        $templateRepository = $this->createMock(ProducerTemplateRepository::class);
+        /**@var ProducersTemplate|\PHPUnit_Framework_MockObject_MockObject $sourceTemplate */
+        $sourceTemplate = $this->createMock(ProducersTemplate::class);
+        /**@var ProducerTemplateRelation|\PHPUnit_Framework_MockObject_MockObject $templateRelation */
+        $templateRelation = $this->createMock(ProducerTemplateRelation::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager->expects($this->at(0))
             ->method('getRepository')
-            ->with(ManagerHasCTS::class)
+            ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
         $entityManager->expects($this->at(1))
             ->method('getRepository')
-            ->with(SourceTemplate::class)
+            ->with(ProducersTemplate::class)
             ->willReturn($templateRepository);
 
         $hasCTSRepository->expects($this->once())
@@ -213,22 +212,22 @@ class CallTaskProviderTest extends TestCase
             EntityManagerInterface::class => $entityManager,
         ]);
 
-        $callTaskProvider->add(new TestSource());
+        $callTaskProvider->add(new TestTaskProducer());
 
         $callTaskProvider->determineNextTask('userId');
     }
 
     public function testGetNextTaskForUserNullNext()
     {
-        /**@var ManagerHasCTSRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
-        $hasCTSRepository = $this->createMock(ManagerHasCTSRepository::class);
-        /**@var ManagerHasCTS|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
-        $managerHasCTS = $this->createMock(ManagerHasCTS::class);
+        /**@var ManagerHasProducerRepository|\PHPUnit_Framework_MockObject_MockObject $hasCTSRepository */
+        $hasCTSRepository = $this->createMock(ManagerHasProducerRepository::class);
+        /**@var ManagerHasTaskProducer|\PHPUnit_Framework_MockObject_MockObject $managerHasCTS */
+        $managerHasCTS = $this->createMock(ManagerHasTaskProducer::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager->expects($this->at(0))
             ->method('getRepository')
-            ->with(ManagerHasCTS::class)
+            ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
 
         $hasCTSRepository->expects($this->once())
@@ -243,11 +242,7 @@ class CallTaskProviderTest extends TestCase
             EntityManagerInterface::class => $entityManager
         ]);
 
-
-
         $callTaskProvider->add(new TestSourceNullNext());
-
-
 
         $result = $callTaskProvider->determineNextTask('userId');
 
@@ -273,7 +268,7 @@ class CallTaskProviderTest extends TestCase
 
         $callTaskProvider->registerProvider(new ConcreteTestProvider());
         $result = $callTaskProvider->getLockedByUser('userId');
-        $this->assertInstanceOf(TestCallTask::class, $result);
+        $this->assertInstanceOf(TestErpTask::class, $result);
     }
 
     public function testGetLockedByUserNull()
@@ -292,29 +287,12 @@ class CallTaskProviderTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testAll()
-    {
-        /**@var DynamicSourceProviderRegistry|\PHPUnit_Framework_MockObject_MockObject $sourceProvider */
-        $sourceProvider = $this->createMock(DynamicSourceProviderRegistry::class);
-
-        $callTaskProvider = $this->createCallTaskProviderWithMockArgs([
-            DynamicSourceProviderRegistry::class => $sourceProvider
-        ]);
-
-        $sourceProvider->expects($this->once())
-            ->method('getSources')
-            ->willReturn([new TestSource()]);
-
-        $guessWho = $callTaskProvider->all();
-
-        $this->assertInstanceOf(TestSource::class, array_shift($guessWho));
-    }
-
     /**
      * @param array $args
-     * @return CallTaskProvider
+     *
+     * @return \GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider
      */
-    private function createCallTaskProviderWithMockArgs(array $args = []): CallTaskProvider
+    private function createCallTaskProviderWithMockArgs(array $args = []): BaseTaskProvider
     {
         $entityManager = (isset($args[EntityManagerInterface::class]))
             ? $args[EntityManagerInterface::class]
@@ -327,17 +305,12 @@ class CallTaskProviderTest extends TestCase
         $eventDispatcher = (isset($args[EventDispatcherInterface::class]))
             ? $args[EventDispatcherInterface::class]
             : $this->createMock(EventDispatcherInterface::class);
-        /**@var DynamicSourceProviderRegistry|\PHPUnit_Framework_MockObject_MockObject $sourceProvider */
-        $sourceProvider = (isset($args[DynamicSourceProviderRegistry::class]))
-            ? $args[DynamicSourceProviderRegistry::class]
-            : $this->createMock(DynamicSourceProviderRegistry::class);
 
         $callTaskProvider =
-            new CallTaskProvider(
+            new BaseTaskProvider(
                 $entityManager,
                 $taskMarker,
-                $eventDispatcher,
-                $sourceProvider
+                $eventDispatcher
             );
 
         return $callTaskProvider;

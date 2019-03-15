@@ -4,13 +4,13 @@
  * @since : 10.07.18
  */
 
-namespace GepurIt\CallTaskBundle\Entity;
+namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class SourceTemplateRelation
- * @package GepurIt\CallTaskBundle\Entity
+ * Class ProducerTemplateRelation
+ * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\Table(
  *     name="call_task_template_relation",
  *     indexes={
@@ -18,11 +18,11 @@ use Doctrine\ORM\Mapping as ORM;
  *     }
  * )
  * @ORM\Entity(
- *     repositoryClass="GepurIt\CallTaskBundle\Repository\SourceTemplateRelationRepository",
+ *     repositoryClass="GepurIt\ErpTaskBundle\Repository\ProducerTemplateRelationRepository",
  * )
  * @codeCoverageIgnore
  */
-class SourceTemplateRelation
+class ProducerTemplateRelation
 {
     /**
      * @var string
@@ -33,14 +33,22 @@ class SourceTemplateRelation
     private $sourceName;
 
     /**
+     * @var string
+     * @ORM\Column(name="source_type", type="string")
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $sourceType;
+
+    /**
      * @var int
      * @ORM\Column(name="priority", type="string")
      */
     private $priority = 0;
 
     /**
-     * @var SourceTemplate
-     * @ORM\ManyToOne(targetEntity="GepurIt\CallTaskBundle\Entity\SourceTemplate", inversedBy="relations")
+     * @var ProducersTemplate
+     * @ORM\ManyToOne(targetEntity="GepurIt\ErpTaskBundle\Entity\ProducersTemplate", inversedBy="relations")
      * @ORM\JoinColumn(name="template_name", referencedColumnName="name")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
@@ -48,15 +56,17 @@ class SourceTemplateRelation
     private $template;
 
     /**
-     * SourceTemplateRelation constructor.
+     * ProducerTemplateRelation constructor.
      *
-     * @param SourceTemplate $template
+     * @param ProducersTemplate $template
      * @param string         $sourceName
+     * @param string         $sourceType
      */
-    public function __construct(SourceTemplate $template, string $sourceName)
+    public function __construct(ProducersTemplate $template, string $sourceName, string $sourceType)
     {
         $this->template   = $template;
         $this->sourceName = $sourceName;
+        $this->sourceType = $sourceType;
     }
 
     /**
@@ -89,5 +99,13 @@ class SourceTemplateRelation
     public function getTemplate(): string
     {
         return $this->template;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceType(): string
+    {
+        return $this->sourceType;
     }
 }

@@ -4,11 +4,11 @@
  * @since : 18.01.19 11:27
  */
 
-namespace GepurIt\CallTaskBundle\TaskPresenter;
+namespace GepurIt\ErpTaskBundle\TaskPresenter;
 
 /**
  * Interface TaskListItemPresentationInterface
- * @package GepurIt\CallTaskBundle\TaskPresenter
+ * @package GepurIt\ErpTaskBundle\TaskPresenter
  */
 interface TaskListItemPresentationInterface
 {

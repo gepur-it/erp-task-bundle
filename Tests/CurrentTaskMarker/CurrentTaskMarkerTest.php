@@ -6,22 +6,22 @@
  * Time: 17:54
  */
 
-namespace GepurIt\CallTaskBundle\Tests\CurrentTaskMarker;
+namespace GepurIt\ErpTaskBundle\Tests\CurrentTaskMarker;
 
 
 use Doctrine\ORM\EntityManagerInterface;
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
-use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarker;
-use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
-use GepurIt\CallTaskBundle\Entity\CallTaskMark;
-use GepurIt\CallTaskBundle\Exception\TaskMarkNotFoundException;
-use GepurIt\CallTaskBundle\Repository\CallTaskMarkRepository;
-use GepurIt\CallTaskBundle\Tests\Stubs\TestCallTask;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarker;
+use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
+use GepurIt\ErpTaskBundle\Entity\CallTaskMark;
+use GepurIt\ErpTaskBundle\Exception\TaskMarkNotFoundException;
+use GepurIt\ErpTaskBundle\Repository\ErpTaskMarkRepository;
+use GepurIt\ErpTaskBundle\Tests\Stubs\TestErpTask;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class CurrentTaskMarkerTest
- * @package GepurIt\CallTaskBundle\Tests\CurrentTaskMarker
+ * @package GepurIt\ErpTaskBundle\Tests\CurrentTaskMarker
  */
 class CurrentTaskMarkerTest extends TestCase
 {
@@ -30,8 +30,8 @@ class CurrentTaskMarkerTest extends TestCase
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
 
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository= $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository= $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -54,8 +54,8 @@ class CurrentTaskMarkerTest extends TestCase
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
 
-        /**@var CallTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
-        $callTask = $this->createMock(CallTaskInterface::class);
+        /**@var ErpTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
+        $callTask = $this->createMock(ErpTaskInterface::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -83,11 +83,11 @@ class CurrentTaskMarkerTest extends TestCase
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
 
-        /**@var CallTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
-        $callTask = $this->createMock(CallTaskInterface::class);
+        /**@var ErpTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
+        $callTask = $this->createMock(ErpTaskInterface::class);
 
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository= $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository= $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -112,11 +112,11 @@ class CurrentTaskMarkerTest extends TestCase
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
 
-        /**@var CallTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
-        $callTask = $this->createMock(CallTaskInterface::class);
+        /**@var ErpTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
+        $callTask = $this->createMock(ErpTaskInterface::class);
 
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository= $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository= $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -146,11 +146,11 @@ class CurrentTaskMarkerTest extends TestCase
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
 
-        /**@var CallTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
-        $callTask = $this->createMock(CallTaskInterface::class);
+        /**@var \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|\PHPUnit_Framework_MockObject_MockObject $taskMark */
+        $callTask = $this->createMock(ErpTaskInterface::class);
 
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository= $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository= $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -177,8 +177,8 @@ class CurrentTaskMarkerTest extends TestCase
     {
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository = $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository = $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -190,15 +190,15 @@ class CurrentTaskMarkerTest extends TestCase
         $callTaskMarkRepository->expects($this->once())
             ->method('findOneByTaskRelatively');
 
-        $currentTaskMarker->getMarkByTask(new TestCallTask('id'));
+        $currentTaskMarker->getMarkByTask(new TestErpTask('id'));
     }
 
     public function testTransferTaskMarkException()
     {
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository = $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository = $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -213,15 +213,15 @@ class CurrentTaskMarkerTest extends TestCase
 
         $this->expectException(TaskMarkNotFoundException::class);
 
-        $currentTaskMarker->transferTaskMark(new TestCallTask('id'), 'dummy');
+        $currentTaskMarker->transferTaskMark(new TestErpTask('id'), 'dummy');
     }
 
     public function testTransferTaskMark()
     {
         /**@var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject $entityManager */
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        /**@var CallTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
-        $callTaskMarkRepository = $this->createMock(CallTaskMarkRepository::class);
+        /**@var ErpTaskMarkRepository|\PHPUnit_Framework_MockObject_MockObject $callTaskMarkRepository */
+        $callTaskMarkRepository = $this->createMock(ErpTaskMarkRepository::class);
 
         $currentTaskMarker = new CurrentTaskMarker($entityManager);
 
@@ -234,6 +234,6 @@ class CurrentTaskMarkerTest extends TestCase
             ->method('findOne')
             ->willReturn(new CallTaskMark('ud', 'test' ,'dummy', 'clientId'));
 
-        $currentTaskMarker->transferTaskMark(new TestCallTask('id'), 'dummy');
+        $currentTaskMarker->transferTaskMark(new TestErpTask('id'), 'dummy');
     }
 }

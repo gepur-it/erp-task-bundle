@@ -4,9 +4,9 @@
  * @since : 14.05.18
  */
 
-namespace GepurIt\CallTaskBundle\DependencyInjection;
+namespace GepurIt\ErpTaskBundle\DependencyInjection;
 
-use GepurIt\CallTaskBundle\CallTaskSource\ConcreteCallTaskTypeProviderInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Class CallTaskExtension
- * @package GepurIt\CallTaskBundle\DependencyInjection
+ * @package GepurIt\ErpTaskBundle\DependencyInjection
  * @codeCoverageIgnore
  */
 class CallTaskExtension extends Extension
@@ -27,7 +27,7 @@ class CallTaskExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $container->registerForAutoconfiguration(ConcreteCallTaskTypeProviderInterface::class)
+        $container->registerForAutoconfiguration(TaskProviderInterface::class)
             ->addTag(self::CONCRETE_PROVIDER_TAG);
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

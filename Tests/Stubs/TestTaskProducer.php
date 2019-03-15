@@ -6,24 +6,24 @@
  * Time: 10:34
  */
 
-namespace GepurIt\CallTaskBundle\Tests\Stubs;
+namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
-use GepurIt\CallTaskBundle\CallTaskSource\SourceInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
 use Yawa20\RegistryBundle\Registrable\RegistrableInterface;
 
 /**
  * Class TestSource
- * @package GepurIt\CallTaskBundle\Tests\Stubs
+ * @package GepurIt\ErpTaskBundle\Tests\Stubs
  */
-class TestSource implements SourceInterface, RegistrableInterface
+class TestTaskProducer implements TaskProducerInterface, RegistrableInterface
 {
     /**
-     * @return CallTaskInterface|null
+     * @return ErpTaskInterface|null
      */
-    public function getNext(): ?CallTaskInterface
+    public function getNext(): ?ErpTaskInterface
     {
-        return new TestCallTask('42');
+        return new TestErpTask('42');
     }
 
     /**

@@ -4,13 +4,13 @@
  * @since : 15.05.18
  */
 
-namespace GepurIt\CallTaskBundle\CurrentTaskMarker;
+namespace GepurIt\ErpTaskBundle\CurrentTaskMarker;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Interface CurrentTaskMarkerInterface
- * @package GepurIt\CallTaskBundle\CallTask
+ * @package GepurIt\ErpTaskBundle\CallTask
  */
 interface CurrentTaskMarkerInterface
 {
@@ -22,29 +22,29 @@ interface CurrentTaskMarkerInterface
     public function getTaskMark(string $userId): ?CurrentTaskMarkInterface;
 
     /**
-     * @param CallTaskInterface $callTask
-     * @param string            $userId
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param string                                            $userId
      *
      * @return CurrentTaskMarkInterface
      */
-    public function markTask(CallTaskInterface $callTask, string $userId): CurrentTaskMarkInterface;
+    public function markTask(ErpTaskInterface $callTask, string $userId): CurrentTaskMarkInterface;
 
     /**
-     * @param CallTaskInterface $callTask
-     * @param bool              $unlock
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param bool                                              $unlock
      */
-    public function unmarkTask(CallTaskInterface $callTask, bool $unlock = true): void;
+    public function unmarkTask(ErpTaskInterface $callTask, bool $unlock = true): void;
 
     /**
-     * @param CallTaskInterface $callTask
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
      *
      * @return CurrentTaskMarkInterface|null
      */
-    public function getMarkByTask(CallTaskInterface $callTask): ?CurrentTaskMarkInterface;
+    public function getMarkByTask(ErpTaskInterface $callTask): ?CurrentTaskMarkInterface;
 
     /**
-     * @param CallTaskInterface $callTask
-     * @param string            $userId
+     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param string                                            $userId
      */
-    public function transferTaskMark(CallTaskInterface $callTask, string $userId): void;
+    public function transferTaskMark(ErpTaskInterface $callTask, string $userId): void;
 }

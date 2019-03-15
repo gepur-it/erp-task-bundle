@@ -1,16 +1,16 @@
 {
-    "name": "gepur-it/calltask-bundle",
-    "description": "Calltask bundle",
+    "name": "gepur-it/erp-task-bundle",
+    "description": "Erp task bundle",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "keywords": [
       "gepur",
       "symfony",
       "bundle",
       "calltask"
     ],
-    "homepage": "https://github.com/gepur-it/calltask-bundle",
+    "homepage": "https://github.com/gepur-it/erp-task-bundle",
     "require": {
         "php": "^7.2",
         "symfony/validator": "^4.2",
@@ -24,12 +24,12 @@
     },
   "autoload": {
     "psr-4": {
-      "GepurIt\\CallTaskBundle\\": "src"
+      "GepurIt\\ErpTaskBundle\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "GepurIt\\CallTaskBundle\\Tests\\": "Tests"
+      "GepurIt\\ErpTaskBundle\\Tests\\": "Tests"
     }
   },
     "authors": [

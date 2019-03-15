@@ -4,14 +4,14 @@
  * @since : 16.08.18
  */
 
-namespace GepurIt\CallTaskBundle\Entity;
+namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class UserTemplateRelation
- * @package GepurIt\CallTaskBundle\Entity
+ * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="call_task_manager_has_template",
@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @codeCoverageIgnore
  */
-class ManagerHasSourceTemplate
+class ManagerHasProducerTemplate
 {
     /**
      * @var string
@@ -32,8 +32,8 @@ class ManagerHasSourceTemplate
     private $managerId;
 
     /**
-     * @var SourceTemplate
-     * @ORM\ManyToOne(targetEntity="GepurIt\CallTaskBundle\Entity\SourceTemplate", inversedBy="managerRelations")
+     * @var ProducersTemplate
+     * @ORM\ManyToOne(targetEntity="\GepurIt\ErpTaskBundle\Entity\ProducersTemplate", inversedBy="managerRelations")
      * @ORM\JoinColumn(name="template", referencedColumnName="name")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
@@ -47,12 +47,12 @@ class ManagerHasSourceTemplate
     private $createdAt;
 
     /**
-     * ManagerHasSourceTemplate constructor.
+     * ManagerHasProducerTemplate constructor.
      *
-     * @param SourceTemplate $template
+     * @param ProducersTemplate $template
      * @param string         $managerId
      */
-    public function __construct(SourceTemplate $template, string $managerId)
+    public function __construct(ProducersTemplate $template, string $managerId)
     {
         $this->template  = $template;
         $this->managerId = $managerId;
@@ -68,17 +68,17 @@ class ManagerHasSourceTemplate
     }
 
     /**
-     * @return SourceTemplate
+     * @return ProducersTemplate
      */
-    public function getTemplate(): SourceTemplate
+    public function getTemplate(): ProducersTemplate
     {
         return $this->template;
     }
 
     /**
-     * @param SourceTemplate $template
+     * @param ProducersTemplate $template
      */
-    public function setTemplate(SourceTemplate $template)
+    public function setTemplate(ProducersTemplate $template)
     {
         $this->template = $template;
     }

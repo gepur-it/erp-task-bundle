@@ -4,15 +4,15 @@
  * @since : 28.02.19
  */
 
-namespace GepurIt\CallTaskBundle\DependencyInjection\Compiler;
+namespace GepurIt\ErpTaskBundle\DependencyInjection\Compiler;
 
-use GepurIt\CallTaskBundle\Dynamic\DynamicSourceProviderRegistry;
+use GepurIt\ErpTaskBundle\Dynamic\DynamicSourceProviderRegistry;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class DynamicSourceProviderPass
- * @package GepurIt\CallTaskBundle\DependencyInjection\Compiler
+ * @package GepurIt\ErpTaskBundle\DependencyInjection\Compiler
  */
 class DynamicSourceProviderPass implements CompilerPassInterface
 {

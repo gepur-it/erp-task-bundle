@@ -4,23 +4,23 @@
  * @since: 18.05.18
  */
 
-namespace GepurIt\CallTaskBundle\ActionProcessor;
+namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Interface ConcreteTypeActionProcessorInterface
- * @package GepurIt\CallTaskBundle\ActionProcessorRegistry
+ * @package GepurIt\ErpTaskBundle\ActionProcessorRegistry
  */
 interface ActionProcessorInterface
 {
     /**
-     * @param ActionInterface   $action
-     * @param CallTaskInterface $callTask
+     * @param ActionInterface  $action
+     * @param ErpTaskInterface $callTask
      *
      * @return ActionInterface
      */
-    public function processAction(ActionInterface $action, CallTaskInterface $callTask): ActionInterface;
+    public function processAction(ActionInterface $action, ErpTaskInterface $callTask): ActionInterface;
 
     /**
      * @return string

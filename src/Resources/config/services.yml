@@ -1,19 +1,19 @@
 services:
-  GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarker:
+  GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarker:
     autowire: true
-  GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface:
-    alias: GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarker
-  GepurIt\CallTaskBundle\CallTaskSource\CallTaskProvider:
+  GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface:
+    alias: GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarker
+  GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider:
     autowire: true
-  GepurIt\CallTaskBundle\CallTaskSource\SourceToManagerRelationProvider:
+  GepurIt\ErpTaskBundle\CallTaskSource\ProducerToManagerRelationProvider:
     autowire: true
-  GepurIt\CallTaskBundle\ActionProcessor\BaseActionProcessor:
+  GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessor:
     autowire: true
-  GepurIt\CallTaskBundle\ActionProcessor\BaseActionProcessorInterface:
-    alias: GepurIt\CallTaskBundle\ActionProcessor\BaseActionProcessor
-  GepurIt\CallTaskBundle\ActionProcessor\ActionProcessorRegistry:
+  GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessorInterface:
+    alias: GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessor
+  GepurIt\ErpTaskBundle\ActionProcessor\ActionProcessorRegistry:
     autowire: true
-  GepurIt\CallTaskBundle\TaskPresenter\TaskPresenterRegistry:
+  GepurIt\ErpTaskBundle\TaskPresenter\TaskPresenterRegistry:
     autowire: true
-  GepurIt\CallTaskBundle\Dynamic\DynamicSourceProviderRegistry:
+  GepurIt\ErpTaskBundle\Dynamic\DynamicSourceProviderRegistry:
      autowire: true

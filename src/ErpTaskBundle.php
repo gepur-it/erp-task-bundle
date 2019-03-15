@@ -4,19 +4,19 @@
  * @since: 11.05.18
  */
 
-namespace GepurIt\CallTaskBundle;
+namespace GepurIt\ErpTaskBundle;
 
-use GepurIt\CallTaskBundle\DependencyInjection\Compiler\ConcreteTypeProviderPass;
-use GepurIt\CallTaskBundle\DependencyInjection\Compiler\DynamicSourceProviderPass;
+use GepurIt\ErpTaskBundle\DependencyInjection\Compiler\ConcreteTypeProviderPass;
+use GepurIt\ErpTaskBundle\DependencyInjection\Compiler\DynamicSourceProviderPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class CallTaskBundle
- * @package GepurIt\CallTaskBundle
+ * Class ErpTaskBundle
+ * @package GepurIt\ErpTaskBundle
  * @codeCoverageIgnore
  */
-class CallTaskBundle extends Bundle
+class ErpTaskBundle extends Bundle
 {
     /**
      * @param ContainerBuilder $container

@@ -4,7 +4,7 @@
  * @since : 10.07.18
  */
 
-namespace GepurIt\CallTaskBundle\Entity;
+namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,8 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class SourceTemplate
- * @package GepurIt\CallTaskBundle\Entity
+ * Class ProducersTemplate
+ * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="call_task_template",
@@ -22,14 +22,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  * @ORM\Entity(
- *     repositoryClass="GepurIt\CallTaskBundle\Repository\SourceTemplateRepository",
+ *     repositoryClass="\GepurIt\ErpTaskBundle\Repository\ProducerTemplateRepository",
  * )
  * @codeCoverageIgnore
  *
  * @UniqueEntity("label")
  * @UniqueEntity("name")
  */
-class SourceTemplate
+class ProducersTemplate
 {
     /**
      * @var string
@@ -54,9 +54,9 @@ class SourceTemplate
     private $name = '';
 
     /**
-     * @var ArrayCollection|SourceTemplateRelation[]
+     * @var ArrayCollection|ProducerTemplateRelation[]
      * @ORM\OneToMany(
-     *     targetEntity="GepurIt\CallTaskBundle\Entity\SourceTemplateRelation",
+     *     targetEntity="GepurIt\ErpTaskBundle\Entity\ProducerTemplateRelation",
      *     mappedBy="template",
      *     cascade={"persist"}
      * )
@@ -65,9 +65,9 @@ class SourceTemplate
     private $relations;
 
     /**
-     * @var ArrayCollection|ManagerHasSourceTemplate[]
+     * @var ArrayCollection|ManagerHasProducerTemplate[]
      * @ORM\OneToMany(
-     *     targetEntity="GepurIt\CallTaskBundle\Entity\ManagerHasSourceTemplate",
+     *     targetEntity="ManagerHasProducerTemplate",
      *     mappedBy="template",
      *     cascade={"persist"}
      * )
@@ -75,7 +75,7 @@ class SourceTemplate
     private $managerRelations;
 
     /**
-     * SourceTemplate constructor.
+     * ProducersTemplate constructor.
      *
      * @param string $name
      * @param string $label
@@ -89,7 +89,7 @@ class SourceTemplate
     }
 
     /**
-     * @return ArrayCollection|SourceTemplateRelation[]
+     * @return ArrayCollection|ProducerTemplateRelation[]
      */
     public function getRelations()
     {
@@ -97,7 +97,7 @@ class SourceTemplate
     }
 
     /**
-     * @param ArrayCollection|SourceTemplateRelation[] $relations
+     * @param ArrayCollection|ProducerTemplateRelation[] $relations
      */
     public function setRelations(ArrayCollection $relations): void
     {
@@ -105,17 +105,17 @@ class SourceTemplate
     }
 
     /**
-     * @param SourceTemplateRelation $relation
+     * @param ProducerTemplateRelation $relation
      */
-    public function addRelation(SourceTemplateRelation $relation)
+    public function addRelation(ProducerTemplateRelation $relation)
     {
         $this->relations->add($relation);
     }
 
     /**
-     * @param SourceTemplateRelation $relation
+     * @param ProducerTemplateRelation $relation
      */
-    public function removeRelation(SourceTemplateRelation $relation)
+    public function removeRelation(ProducerTemplateRelation $relation)
     {
         $this->relations->removeElement($relation);
     }
@@ -161,7 +161,7 @@ class SourceTemplate
     }
 
     /**
-     * @return ArrayCollection|ManagerHasSourceTemplate[]
+     * @return ArrayCollection|ManagerHasProducerTemplate[]
      */
     public function getManagerRelations()
     {

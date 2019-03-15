@@ -6,20 +6,20 @@
  * Time: 10:51
  */
 
-namespace GepurIt\CallTaskBundle\Tests\Stubs;
+namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Class TestSourceNullNext
- * @package GepurIt\CallTaskBundle\Tests\Stubs
+ * @package GepurIt\ErpTaskBundle\Tests\Stubs
  */
-class TestSourceNullNext extends TestSource
+class TestSourceNullNext extends TestTaskProducer
 {
     /**
-     * @return CallTaskInterface|null
+     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|null
      */
-    public function getNext(): ?CallTaskInterface
+    public function getNext(): ?ErpTaskInterface
     {
         return null;
     }

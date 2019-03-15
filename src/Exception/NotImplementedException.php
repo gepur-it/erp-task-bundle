@@ -4,11 +4,11 @@
  * @since : 31.07.18
  */
 
-namespace GepurIt\CallTaskBundle\Exception;
+namespace GepurIt\ErpTaskBundle\Exception;
 
 /**
  * Class NotImplementedException
- * @package GepurIt\CallTaskBundle\Exception
+ * @package GepurIt\ErpTaskBundle\Exception
  */
 class NotImplementedException extends CallTaskException
 {

@@ -4,11 +4,11 @@
  * @since : 28.02.19
  */
 
-namespace GepurIt\CallTaskBundle\Dynamic;
+namespace GepurIt\ErpTaskBundle\Dynamic;
 
 /**
  * Class DynamicSourceProviderRegistry
- * @package GepurIt\CallTaskBundle\Dynamic
+ * @package GepurIt\ErpTaskBundle\Dynamic
  */
 class DynamicSourceProviderRegistry
 {
