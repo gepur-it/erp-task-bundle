@@ -6,7 +6,7 @@
 
 namespace GepurIt\CallTaskBundle\Event;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -21,16 +21,16 @@ class CallTaskWasTakenEvent extends Event
     /** @var string */
     private $userId;
 
-    /** @var CallTaskInterface */
+    /** @var \GepurIt\CallTaskBundle\Contract\ErpTaskInterface */
     private $callTask;
 
     /**
      * CallTaskWasTakenEvent constructor.
      *
-     * @param CallTaskInterface $callTask
-     * @param string            $userId
+     * @param \GepurIt\CallTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param string                                            $userId
      */
-    public function __construct(CallTaskInterface $callTask, string $userId)
+    public function __construct(ErpTaskInterface $callTask, string $userId)
     {
         $this->callTask = $callTask;
         $this->userId   = $userId;
@@ -45,9 +45,9 @@ class CallTaskWasTakenEvent extends Event
     }
 
     /**
-     * @return CallTaskInterface
+     * @return \GepurIt\CallTaskBundle\Contract\ErpTaskInterface
      */
-    public function getCallTask(): CallTaskInterface
+    public function getCallTask(): ErpTaskInterface
     {
         return $this->callTask;
     }

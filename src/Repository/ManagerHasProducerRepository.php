@@ -7,21 +7,21 @@
 namespace GepurIt\CallTaskBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use GepurIt\CallTaskBundle\Entity\ManagerHasCTS;
+use GepurIt\CallTaskBundle\Entity\ManagerHasTaskProducer;
 
 /**
  * Class SourceToUserRelationRepository
  * @package GepurIt\Repository
- * @method ManagerHasCTS[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method ManagerHasCTS|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ManagerHasTaskProducer[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ManagerHasTaskProducer|null find($id, $lockMode = null, $lockVersion = null)
  * @codeCoverageIgnore
  */
-class ManagerHasCTSRepository extends EntityRepository
+class ManagerHasCTRRepository extends EntityRepository
 {
     /**
      * @param string $userId
      *
-     * @return ManagerHasCTS[]
+     * @return ManagerHasTaskProducer[]
      */
     public function findByUser(string $userId): array
     {

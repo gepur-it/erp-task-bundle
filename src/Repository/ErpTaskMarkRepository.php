@@ -8,7 +8,7 @@ namespace GepurIt\CallTaskBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\CallTaskBundle\Entity\CallTaskMark;
 
 /**
@@ -84,11 +84,11 @@ class CallTaskMarkRepository extends EntityRepository
     }
 
     /**
-     * @param CallTaskInterface $callTask
+     * @param \GepurIt\CallTaskBundle\Contract\ErpTaskInterface $callTask
      *
      * @return CallTaskMark|null
      */
-    public function findOneByTaskRelatively(CallTaskInterface $callTask): ?CallTaskMark
+    public function findOneByTaskRelatively(ErpTaskInterface $callTask): ?CallTaskMark
     {
         $query = $this->createQueryBuilder('callTaskMark')
             ->where('callTaskMark.taskId = :taskId')
@@ -106,7 +106,7 @@ class CallTaskMarkRepository extends EntityRepository
         return $mark;
     }
 
-    public function findOne(CallTaskInterface $callTask)
+    public function findOne(ErpTaskInterface $callTask)
     {
         return $this->find(['taskId' => $callTask->getTaskId(), 'taskType' => $callTask->getType()]);
     }

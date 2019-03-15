@@ -7,24 +7,22 @@
 namespace GepurIt\CallTaskBundle\CallTaskSource;
 
 use Doctrine\ORM\EntityManagerInterface;
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
+use GepurIt\CallTaskBundle\Contract\TaskProducerInterface;
+use GepurIt\CallTaskBundle\Contract\TaskProviderInterface;
 use GepurIt\CallTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
-use GepurIt\CallTaskBundle\Dynamic\DynamicSourceProviderRegistry;
-use GepurIt\CallTaskBundle\Entity\ManagerHasCTS;
+use GepurIt\CallTaskBundle\Entity\ManagerHasTaskProducer;
 use GepurIt\CallTaskBundle\Entity\SourceTemplate;
-use GepurIt\CallTaskBundle\Event\CallTaskWasTakenEvent;
-use GepurIt\CallTaskBundle\Repository\ManagerHasCTSRepository;
-use GepurIt\CallTaskBundle\Repository\SourceTemplateRepository;
+use GepurIt\CallTaskBundle\Event\ErpTaskWasTakenEvent;
+use GepurIt\CallTaskBundle\Repository\ManagerHasProducerRepository;
+use GepurIt\CallTaskBundle\Repository\ProducerTemplateRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Yawa20\RegistryBundle\Registrable\RegistrableInterface;
-use Yawa20\RegistryBundle\Registry\SimpleRegistry;
 
 /**
  * Class CallTaskProvider
  * @package CallTaskBundle
- * @method add(SourceInterface $item): void
  */
-class CallTaskProvider extends SimpleRegistry
+class BaseTaskProvider
 {
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -35,18 +33,8 @@ class CallTaskProvider extends SimpleRegistry
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var ConcreteCallTaskTypeProviderInterface[] */
+    /** @var TaskProviderInterface[] */
     private $concreteTypeProviders = [];
-
-    /** @var DynamicSourceProviderRegistry */
-    private $providerRegistry;
-
-    /**
-     * initialization key,
-     * used for lazy loading (because we do not want to ask database is construct)
-     * @var bool
-     */
-    private $isInitialized = false;
 
     /**
      * CallTaskProvider constructor.
@@ -54,29 +42,25 @@ class CallTaskProvider extends SimpleRegistry
      * @param EntityManagerInterface        $entityManager
      * @param CurrentTaskMarkerInterface    $taskMarker
      * @param EventDispatcherInterface      $eventDispatcher
-     * @param DynamicSourceProviderRegistry $providerRegistry
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         CurrentTaskMarkerInterface $taskMarker,
-        EventDispatcherInterface $eventDispatcher,
-        DynamicSourceProviderRegistry $providerRegistry
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager    = $entityManager;
         $this->taskMarker       = $taskMarker;
         $this->eventDispatcher  = $eventDispatcher;
-        $this->providerRegistry = $providerRegistry;
-        parent::__construct(SourceInterface::class);
     }
 
     /**
      * @param string $userId
      *
-     * @return SourceInterface[]
+     * @return TaskProducerInterface[]
      */
     public function getUserTemplateSources(string $userId)
     {
-        /** @var SourceTemplateRepository $repo */
+        /** @var ProducerTemplateRepository $repo */
         $repo     = $this->entityManager->getRepository(SourceTemplate::class);
         $template = $repo->findOneByUserId($userId);
         if (null === $template) {
@@ -85,7 +69,7 @@ class CallTaskProvider extends SimpleRegistry
         $result = [];
 
         foreach ($template->getRelations() as $relation) {
-            $result[] = $this->getSource($relation->getSourceName());
+            $result[] = $this->getTypeProvider($relation->getSourceType())->getSource($relation->getSourceName());
         }
 
         return $result;
@@ -94,17 +78,17 @@ class CallTaskProvider extends SimpleRegistry
     /**
      * @param string $userId
      *
-     * @return SourceInterface[]
+     * @return TaskProducerInterface[]
      */
     public function getSourcesByUserId(string $userId): array
     {
-        /** @var ManagerHasCTSRepository $repository */
-        $repository = $this->entityManager->getRepository(ManagerHasCTS::class);
+        /** @var ManagerHasProducerRepository $repository */
+        $repository = $this->entityManager->getRepository(ManagerHasTaskProducer::class);
         $relations  = $repository->findByUser($userId);
 
         $result = [];
         foreach ($relations as $relation) {
-            $result[] = $this->getSource($relation->getSourceName());
+            $result[] = $this->getTypeProvider($relation->getSourceType())->getSource($relation->getSourceName());
         }
 
         return $result;
@@ -113,9 +97,9 @@ class CallTaskProvider extends SimpleRegistry
     /**
      * @param string $userId
      *
-     * @return CallTaskInterface|null
+     * @return ErpTaskInterface|null
      */
-    public function detectForUser(string $userId): ? CallTaskInterface
+    public function detectForUser(string $userId): ? ErpTaskInterface
     {
         $currentTask = $this->getLockedByUser($userId);
 
@@ -126,8 +110,8 @@ class CallTaskProvider extends SimpleRegistry
 
         if (null !== $nextTask) {
             $this->eventDispatcher->dispatch(
-                CallTaskWasTakenEvent::EVENT_NAME,
-                new CallTaskWasTakenEvent($nextTask, $userId)
+                ErpTaskWasTakenEvent::EVENT_NAME,
+                new ErpTaskWasTakenEvent($nextTask, $userId)
             );
         }
 
@@ -137,9 +121,9 @@ class CallTaskProvider extends SimpleRegistry
     /**
      * @param string $userId
      *
-     * @return CallTaskInterface|null
+     * @return ErpTaskInterface|null
      */
-    public function determineNextTask(string $userId): ?CallTaskInterface
+    public function determineNextTask(string $userId): ?ErpTaskInterface
     {
         $sources = $this->getSourcesByUserId($userId);
 
@@ -161,12 +145,12 @@ class CallTaskProvider extends SimpleRegistry
      * @param string $taskType
      * @param string $taskId
      *
-     * @return CallTaskInterface|null
+     * @return ErpTaskInterface|null
      */
     public function getConcreteTask(string $taskType, string $taskId)
     {
-        $callTaskSource = $this->getTypeProvider($taskType);
-        $callTask       = $callTaskSource->find($taskId);
+        $concreteProvider = $this->getTypeProvider($taskType);
+        $callTask       = $concreteProvider->find($taskId);
 
         return $callTask;
     }
@@ -174,9 +158,9 @@ class CallTaskProvider extends SimpleRegistry
     /**
      * @param string $userId
      *
-     * @return CallTaskInterface|null
+     * @return ErpTaskInterface|null
      */
-    public function getLockedByUser(string $userId): ?CallTaskInterface
+    public function getLockedByUser(string $userId): ?ErpTaskInterface
     {
         $mark = $this->taskMarker->getTaskMark($userId);
 
@@ -191,7 +175,7 @@ class CallTaskProvider extends SimpleRegistry
     }
 
     /**
-     * @return ConcreteCallTaskTypeProviderInterface[]
+     * @return TaskProviderInterface[]
      */
     public function getAllProviderTypes(): array
     {
@@ -199,45 +183,9 @@ class CallTaskProvider extends SimpleRegistry
     }
 
     /**
-     * @param string $key
-     *
-     * @return SourceInterface|RegistrableInterface
+     * @param TaskProviderInterface $taskProvider
      */
-    public function getSource(string $key)
-    {
-        return $this->get($key);
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return SourceInterface|RegistrableInterface
-     */
-    public function get(string $key): RegistrableInterface
-    {
-        if (!$this->isInitialized) {
-            $this->init();
-        }
-
-        return parent::get($key);
-    }
-
-    /**
-     * @return SourceInterface[]
-     */
-    public function all(): array
-    {
-        if (!$this->isInitialized) {
-            $this->init();
-        }
-
-        return parent::all();
-    }
-
-    /**
-     * @param ConcreteCallTaskTypeProviderInterface $taskProvider
-     */
-    public function registerProvider(ConcreteCallTaskTypeProviderInterface $taskProvider)
+    public function registerProvider(TaskProviderInterface $taskProvider)
     {
         $this->concreteTypeProviders[$taskProvider->getType()] = $taskProvider;
     }
@@ -245,32 +193,18 @@ class CallTaskProvider extends SimpleRegistry
     /**
      * @param string $type
      *
-     * @return ConcreteCallTaskTypeProviderInterface
+     * @return TaskProviderInterface
      */
-    public function getTypeProvider(string $type): ?ConcreteCallTaskTypeProviderInterface
+    public function getTypeProvider(string $type): ?TaskProviderInterface
     {
         return $this->concreteTypeProviders[$type];
     }
 
     /**
-     * @return ConcreteCallTaskTypeProviderInterface[]
+     * @return TaskProviderInterface[]
      */
     public function getAllTypeProviders(): array
     {
         return $this->concreteTypeProviders;
-    }
-
-    /**
-     *
-     */
-    private function init(): void
-    {
-        foreach ($this->providerRegistry->all() as $provider) {
-            foreach ($provider->getSources() as $source) {
-                $this->add($source);
-            }
-        }
-
-        $this->isInitialized = true;
     }
 }

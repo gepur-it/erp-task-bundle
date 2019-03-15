@@ -33,6 +33,13 @@ class ManagerHasCTS
     private $sourceName;
 
     /**
+     * @var string
+     * @ORM\Column(name="source_type", type="string", length=40, nullable=false)
+     * @ORM\Id
+     */
+    private $sourceType;
+
+    /**
      * @var int
      * @ORM\Column(name="priority", type="integer", nullable=false)
      */
@@ -56,11 +63,13 @@ class ManagerHasCTS
      *
      * @param string $userId
      * @param string $sourceName
+     * @param string $sourceType
      */
-    public function __construct(string $userId, string $sourceName)
+    public function __construct(string $userId, string $sourceName, string $sourceType)
     {
         $this->userId     = $userId;
         $this->sourceName = $sourceName;
+        $this->sourceType = $sourceType;
     }
 
     /**
@@ -117,5 +126,21 @@ class ManagerHasCTS
     public function prePersist(): void
     {
         $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceType(): string
+    {
+        return $this->sourceType;
+    }
+
+    /**
+     * @param string $sourceType
+     */
+    public function setSourceType(string $sourceType): void
+    {
+        $this->sourceType = $sourceType;
     }
 }

@@ -6,14 +6,14 @@
 
 namespace GepurIt\CallTaskBundle\CallTaskSource;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\User\Security\User;
 
 /**
- * Class ConcreteCallTaskTypeProviderInterface
+ * Class TaskProviderInterface
  * @package GepurIt\CallTaskBundle\CallTaskSource
  */
-interface ConcreteCallTaskTypeProviderInterface
+interface TaskProviderInterface
 {
     /**
      * @return string
@@ -23,9 +23,9 @@ interface ConcreteCallTaskTypeProviderInterface
     /**
      * @param string $taskId
      *
-     * @return CallTaskInterface|null
+     * @return \GepurIt\CallTaskBundle\Contract\ErpTaskInterface|null
      */
-    public function find(string $taskId): ?CallTaskInterface;
+    public function find(string $taskId): ?ErpTaskInterface;
 
     /**
      * @return array
@@ -50,4 +50,16 @@ interface ConcreteCallTaskTypeProviderInterface
      * @return array
      */
     public function findAllInProcess(): array;
+
+    /**
+     * @return TaskProducerInterface[]
+     */
+    public function getSources(): array;
+
+    /**
+     * @param string $name
+     *
+     * @return TaskProducerInterface
+     */
+    public function getSource(string $name): TaskProducerInterface;
 }

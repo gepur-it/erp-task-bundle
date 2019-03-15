@@ -6,7 +6,11 @@
 
 namespace GepurIt\CallTaskBundle\CallTask;
 
-interface CallTaskInterface
+/**
+ * Interface CallTaskInterface
+ * @package GepurIt\CallTaskBundle\CallTask
+ */
+interface ErpTaskInterface
 {
     /**
      * @return string

@@ -6,18 +6,18 @@
 
 namespace GepurIt\CallTaskBundle\CallTaskSource;
 
-use GepurIt\CallTaskBundle\CallTask\CallTaskInterface;
+use GepurIt\CallTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Interface CallTaskSourceInterface
  * @package GepurIt\CallTaskBundle\CallTaskSource
  */
-interface SourceInterface
+interface TaskProducerInterface
 {
     /**
-     * @return CallTaskInterface|null
+     * @return \GepurIt\CallTaskBundle\Contract\ErpTaskInterface|null
      */
-    public function getNext(): ?CallTaskInterface;
+    public function getNext(): ?ErpTaskInterface;
 
     /**
      * @return string
