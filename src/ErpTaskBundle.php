@@ -26,6 +26,5 @@ class ErpTaskBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new ConcreteTypeProviderPass());
-        $container->addCompilerPass(new DynamicSourceProviderPass());
     }
 }

@@ -30,7 +30,7 @@ class ConcreteTestProvider implements TaskProviderInterface
      *
      * @return ErpTaskInterface|null
      */
-    public function find(string $taskId): ?ErpTaskInterface
+    public function findTask(string $taskId): ?ErpTaskInterface
     {
         return new TestErpTask($taskId);
     }
@@ -83,7 +83,7 @@ class ConcreteTestProvider implements TaskProviderInterface
         return [];
     }
 
-    public function getSource(string $name): TaskProducerInterface
+    public function getProducer(string $name): TaskProducerInterface
     {
         // TODO: Implement getSource() method.
     }

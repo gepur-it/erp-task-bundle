@@ -27,17 +27,17 @@ class ManagerHasTaskProducer
 
     /**
      * @var string
-     * @ORM\Column(name="source_name", type="string", length=40, nullable=false)
+     * @ORM\Column(name="producer_name", type="string", length=40, nullable=false)
      * @ORM\Id
      */
-    private $sourceName;
+    private $producerName;
 
     /**
      * @var string
-     * @ORM\Column(name="source_type", type="string", length=40, nullable=false)
+     * @ORM\Column(name="producer_type", type="string", length=40, nullable=false)
      * @ORM\Id
      */
-    private $sourceType;
+    private $producerType;
 
     /**
      * @var int
@@ -65,11 +65,11 @@ class ManagerHasTaskProducer
      * @param string $sourceName
      * @param string $sourceType
      */
-    public function __construct(string $userId, string $sourceName, string $sourceType)
+    public function __construct(string $userId, string $producerName, string $producerType)
     {
         $this->userId     = $userId;
-        $this->sourceName = $sourceName;
-        $this->sourceType = $sourceType;
+        $this->producerName = $producerName;
+        $this->producerType = $producerType;
     }
 
     /**
@@ -83,9 +83,9 @@ class ManagerHasTaskProducer
     /**
      * @return string
      */
-    public function getSourceName(): string
+    public function getProducerName(): string
     {
-        return $this->sourceName;
+        return $this->producerName;
     }
 
     /**
@@ -131,16 +131,16 @@ class ManagerHasTaskProducer
     /**
      * @return string
      */
-    public function getSourceType(): string
+    public function getProducerType(): string
     {
-        return $this->sourceType;
+        return $this->producerType;
     }
 
     /**
      * @param string $sourceType
      */
-    public function setSourceType(string $sourceType): void
+    public function setProducerType(string $producerType): void
     {
-        $this->sourceType = $sourceType;
+        $this->producerType = $producerType;
     }
 }

@@ -5,7 +5,8 @@ services:
     alias: GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarker
   GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider:
     autowire: true
-  GepurIt\ErpTaskBundle\CallTaskSource\ProducerToManagerRelationProvider:
+    public: true
+  GepurIt\ErpTaskBundle\Binding\ProducerToManagerRelationProvider:
     autowire: true
   GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessor:
     autowire: true
@@ -13,7 +14,3 @@ services:
     alias: GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessor
   GepurIt\ErpTaskBundle\ActionProcessor\ActionProcessorRegistry:
     autowire: true
-  GepurIt\ErpTaskBundle\TaskPresenter\TaskPresenterRegistry:
-    autowire: true
-  GepurIt\ErpTaskBundle\Dynamic\DynamicSourceProviderRegistry:
-     autowire: true

@@ -8,6 +8,8 @@
 
 namespace GepurIt\ErpTaskBundle\Exception;
 
+use Throwable;
+
 /**
  * Class ProcessActionException
  * @package GepurIt\ErpTaskBundle\Exception
@@ -15,6 +17,11 @@ namespace GepurIt\ErpTaskBundle\Exception;
 class ProcessActionException extends CallTaskException
 {
     protected $errors = null;
+
+    public function __construct(string $message = "", int $code = 422, Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
 
     /**
      * @return array|null

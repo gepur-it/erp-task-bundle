@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * @package GepurIt\ErpTaskBundle\DependencyInjection
  * @codeCoverageIgnore
  */
-class CallTaskExtension extends Extension
+class ErpTaskExtension extends Extension
 {
     const CONCRETE_PROVIDER_TAG = 'call_task.concrete_provider';
 
@@ -30,6 +30,6 @@ class CallTaskExtension extends Extension
         $container->registerForAutoconfiguration(TaskProviderInterface::class)
             ->addTag(self::CONCRETE_PROVIDER_TAG);
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 }

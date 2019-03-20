@@ -6,7 +6,7 @@
 
 namespace GepurIt\ErpTaskBundle\Contract;
 
-use GepurIt\User\Security\User;
+use GepurIt\ErpTaskBundle\ActionProcessor\ActionProcessorInterface;
 
 /**
  * Class TaskProviderInterface
@@ -22,43 +22,24 @@ interface TaskProviderInterface
     /**
      * @param string $taskId
      *
-     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|null
+     * @return ErpTaskInterface|null
      */
-    public function find(string $taskId): ?ErpTaskInterface;
-
-    /**
-     * @return array
-     */
-    public function findAllOpenedTasks(): array;
-
-    /**
-     * @param User $user
-     *
-     * @return array
-     */
-    public function findOpenedByUser(User $user): array;
-
-    /**
-     * @param User $user
-     *
-     * @return array
-     */
-    public function findLockedByUser(User $user): array;
-
-    /**
-     * @return array
-     */
-    public function findAllInProcess(): array;
+    public function findTask(string $taskId): ?ErpTaskInterface;
 
     /**
      * @return TaskProducerInterface[]
      */
-    public function getSources(): array;
+    public function getProducers(): array;
 
     /**
      * @param string $name
      *
      * @return TaskProducerInterface
      */
-    public function getSource(string $name): TaskProducerInterface;
+    public function getProducer(string $name): TaskProducerInterface;
+
+    /**
+     * @return ActionProcessorInterface
+     */
+    public function getActionProcessor(): ActionProcessorInterface;
 }

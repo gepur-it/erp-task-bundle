@@ -69,7 +69,7 @@ class BaseTaskProvider
         $result = [];
 
         foreach ($template->getRelations() as $relation) {
-            $result[] = $this->getTypeProvider($relation->getSourceType())->getSource($relation->getSourceName());
+            $result[] = $this->getTypeProvider($relation->getProducerType())->getProducer($relation->getProducerName());
         }
 
         return $result;
@@ -88,7 +88,7 @@ class BaseTaskProvider
 
         $result = [];
         foreach ($relations as $relation) {
-            $result[] = $this->getTypeProvider($relation->getSourceType())->getSource($relation->getSourceName());
+            $result[] = $this->getTypeProvider($relation->getProducerType())->getProducer($relation->getProducerName());
         }
 
         return $result;
@@ -150,7 +150,7 @@ class BaseTaskProvider
     public function getConcreteTask(string $taskType, string $taskId)
     {
         $concreteProvider = $this->getTypeProvider($taskType);
-        $callTask       = $concreteProvider->find($taskId);
+        $callTask       = $concreteProvider->findTask($taskId);
 
         return $callTask;
     }
@@ -169,7 +169,7 @@ class BaseTaskProvider
         }
 
         $provider = $this->getTypeProvider($mark->getType());
-        $task     = $provider->find($mark->getTaskId());
+        $task     = $provider->findTask($mark->getTaskId());
 
         return $task;
     }

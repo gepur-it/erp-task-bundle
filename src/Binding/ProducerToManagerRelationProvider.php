@@ -50,20 +50,20 @@ class ProducerToManagerRelationProvider
         /** @var ManagerHasTaskProducer[] $ManagerCTSRelations */
         $managerHasCTSs = $repository->findAll();
         foreach ($this->taskProvider->getAllProviderTypes() as $provider) {
-            foreach ($provider->getSources() as $source) {
+            foreach ($provider->getProducers() as $producer) {
                 $tempSource             = [];
-                $tempSource['name']     = $source->getName();
-                $tempSource['label']    = $source->getLabel();
+                $tempSource['name']     = $producer->getName();
+                $tempSource['label']    = $producer->getLabel();
                 $tempSource['type']     = $provider->getType();
                 $relations              = array_filter(
                     $managerHasCTSs,
-                    function (ManagerHasTaskProducer $hasCTS) use ($source) {
-                        return ($source->getName() === $hasCTS->getSourceName());
+                    function (ManagerHasTaskProducer $hasCTS) use ($producer) {
+                        return ($producer->getName() === $hasCTS->getProducerName());
                     }
                 );
                 $tempSource['managers'] = array_values($relations);
 
-                $result[$source->getName()] = $tempSource;
+                $result[$producer->getName()] = $tempSource;
             }
         }
 
@@ -95,7 +95,7 @@ class ProducerToManagerRelationProvider
         $repository      = $this->entityManager->getRepository(ManagerHasTaskProducer::class);
         $index           = array_map(
             function ($item) {
-                return $item['sourceType'].'-'.$item['sourceName'];
+                return $item['producerName'].'-'.$item['producerType'];
             },
             $relationsToStore
         );
@@ -103,7 +103,7 @@ class ProducerToManagerRelationProvider
 
         //remove unnecessary relations
         foreach ($existsRelations as $relation) {
-            if (!in_array($relation->getSourceType().'-'.$relation->getSourceName(), $index)) {
+            if (!in_array($relation->getProducerType().'-'.$relation->getProducerName(), $index)) {
                 $this->entityManager->remove($relation);
             }
         }
@@ -114,14 +114,14 @@ class ProducerToManagerRelationProvider
             $relation = $repository->findOneBy(
                 [
                     'userId'     => $managerId,
-                    'sourceName' => $relationToStore['sourceName'],
-                    'sourceType' => $relationToStore['sourceType'],
+                    'producerName' => $relationToStore['producerName'],
+                    'producerType' => $relationToStore['producerType'],
                 ]
             );
 
             if (null === $relation) {
                 $relation =
-                    new ManagerHasTaskProducer($managerId, $relationToStore['sourceName'], $relationToStore['sourceType']);
+                    new ManagerHasTaskProducer($managerId, $relationToStore['producerName'], $relationToStore['producerType']);
                 $this->entityManager->persist($relation);
             }
 

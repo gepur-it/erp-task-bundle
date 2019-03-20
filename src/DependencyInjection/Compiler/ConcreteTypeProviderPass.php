@@ -6,7 +6,7 @@
 
 namespace GepurIt\ErpTaskBundle\DependencyInjection\Compiler;
 
-use GepurIt\ErpTaskBundle\DependencyInjection\CallTaskExtension;
+use GepurIt\ErpTaskBundle\DependencyInjection\ErpTaskExtension;
 use GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,7 +29,7 @@ class ConcreteTypeProviderPass implements CompilerPassInterface
         }
 
         $provider       = $container->findDefinition(BaseTaskProvider::class);
-        $taggedServices = $container->findTaggedServiceIds(CallTaskExtension::CONCRETE_PROVIDER_TAG);
+        $taggedServices = $container->findTaggedServiceIds(ErpTaskExtension::CONCRETE_PROVIDER_TAG);
 
         foreach (array_keys($taggedServices) as $key) {
             $concreteProvider = $container->getDefinition($key);

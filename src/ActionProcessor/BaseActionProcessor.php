@@ -25,9 +25,6 @@ class BaseActionProcessor implements BaseActionProcessorInterface
     /** @var CurrentTaskMarkerInterface */
     private $taskMarker;
 
-    /** @var ActionProcessorRegistry */
-    private $processorRegistry;
-
     /** @var ValidatorInterface */
     private $validator;
 
@@ -40,21 +37,18 @@ class BaseActionProcessor implements BaseActionProcessorInterface
      * @param EntityManagerInterface     $entityManager
      * @param BaseTaskProvider           $callTaskProvider
      * @param CurrentTaskMarkerInterface $taskMarker
-     * @param ActionProcessorRegistry    $processorRegistry
      * @param ValidatorInterface         $validator
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         BaseTaskProvider $callTaskProvider,
         CurrentTaskMarkerInterface $taskMarker,
-        ActionProcessorRegistry $processorRegistry,
         ValidatorInterface $validator
     ) {
-        $this->callTaskProvider  = $callTaskProvider;
-        $this->taskMarker        = $taskMarker;
-        $this->processorRegistry = $processorRegistry;
-        $this->validator         = $validator;
-        $this->entityManager     = $entityManager;
+        $this->callTaskProvider = $callTaskProvider;
+        $this->taskMarker       = $taskMarker;
+        $this->validator        = $validator;
+        $this->entityManager    = $entityManager;
     }
 
     /**
@@ -80,7 +74,8 @@ class BaseActionProcessor implements BaseActionProcessorInterface
         array $params,
         string $message = ''
     ): ErpTaskInterface {
-        $task = $this->callTaskProvider->getConcreteTask($taskType, $taskId);
+        $taskProvider = $this->callTaskProvider->getTypeProvider($taskType);
+        $task         = $taskProvider->findTask($taskId);
         if (null === $task) {
             throw new ProcessActionException\TaskNotFoundException($action, $taskType, $taskId);
         }
@@ -99,7 +94,7 @@ class BaseActionProcessor implements BaseActionProcessorInterface
             );
         }
 
-        $processor        = $this->processorRegistry->get($taskType);
+        $processor        = $taskProvider->getActionProcessor();
         $supportedActions = $processor->getSupportedActions();
         $actionClass      = $supportedActions[$action];
 

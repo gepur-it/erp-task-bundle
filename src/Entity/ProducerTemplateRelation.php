@@ -26,19 +26,19 @@ class ProducerTemplateRelation
 {
     /**
      * @var string
-     * @ORM\Column(name="source_name", type="string")
+     * @ORM\Column(name="producer_name", type="string")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $sourceName;
+    private $producerName;
 
     /**
      * @var string
-     * @ORM\Column(name="source_type", type="string")
+     * @ORM\Column(name="producer_type", type="string")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $sourceType;
+    private $producerType;
 
     /**
      * @var int
@@ -64,17 +64,17 @@ class ProducerTemplateRelation
      */
     public function __construct(ProducersTemplate $template, string $sourceName, string $sourceType)
     {
-        $this->template   = $template;
-        $this->sourceName = $sourceName;
-        $this->sourceType = $sourceType;
+        $this->template     = $template;
+        $this->producerName = $sourceName;
+        $this->producerType = $sourceType;
     }
 
     /**
      * @return string
      */
-    public function getSourceName(): string
+    public function getProducerName(): string
     {
-        return $this->sourceName;
+        return $this->producerName;
     }
 
     /**
@@ -104,8 +104,8 @@ class ProducerTemplateRelation
     /**
      * @return string
      */
-    public function getSourceType(): string
+    public function getProducerType(): string
     {
-        return $this->sourceType;
+        return $this->producerType;
     }
 }

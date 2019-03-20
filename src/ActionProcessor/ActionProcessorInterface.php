@@ -23,14 +23,9 @@ interface ActionProcessorInterface
     public function processAction(ActionInterface $action, ErpTaskInterface $callTask): ActionInterface;
 
     /**
-     * @return string
-     */
-    public function getType(): string;
-
-    /**
      * @return array
      */
-    public function getSupportedActions(): array ;
+    public function getSupportedActions(): array;
 
     /**
      * @param ActionInterface $action
