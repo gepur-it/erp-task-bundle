@@ -8,7 +8,7 @@ namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
 use Doctrine\ORM\EntityManagerInterface;
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
-use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
+use GepurIt\ErpTaskBundle\TaskMarker\TaskMarkerInterface;
 use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 use GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -22,7 +22,7 @@ class BaseActionProcessor implements BaseActionProcessorInterface
     /** @var \GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider */
     private $callTaskProvider;
 
-    /** @var CurrentTaskMarkerInterface */
+    /** @var TaskMarkerInterface */
     private $taskMarker;
 
     /** @var ValidatorInterface */
@@ -34,15 +34,15 @@ class BaseActionProcessor implements BaseActionProcessorInterface
     /**
      * BaseActionProcessor constructor.
      *
-     * @param EntityManagerInterface     $entityManager
-     * @param BaseTaskProvider           $callTaskProvider
-     * @param CurrentTaskMarkerInterface $taskMarker
-     * @param ValidatorInterface         $validator
+     * @param EntityManagerInterface $entityManager
+     * @param BaseTaskProvider       $callTaskProvider
+     * @param TaskMarkerInterface    $taskMarker
+     * @param ValidatorInterface     $validator
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         BaseTaskProvider $callTaskProvider,
-        CurrentTaskMarkerInterface $taskMarker,
+        TaskMarkerInterface $taskMarker,
         ValidatorInterface $validator
     ) {
         $this->callTaskProvider = $callTaskProvider;
@@ -74,7 +74,7 @@ class BaseActionProcessor implements BaseActionProcessorInterface
         array $params,
         string $message = ''
     ): ErpTaskInterface {
-        $taskProvider = $this->callTaskProvider->getTypeProvider($taskType);
+        $taskProvider = $this->callTaskProvider->getTaskProvider($taskType);
         $task         = $taskProvider->findTask($taskId);
         if (null === $task) {
             throw new ProcessActionException\TaskNotFoundException($action, $taskType, $taskId);

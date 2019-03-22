@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="call_task_template",
+ *     name="erp_task_template",
  *     indexes={
  *          @ORM\Index(name="is_default_idx", columns={"is_default"})
  *     }

@@ -4,19 +4,19 @@
  * @since : 15.05.18
  */
 
-namespace GepurIt\ErpTaskBundle\CurrentTaskMarker;
+namespace GepurIt\ErpTaskBundle\TaskMarker;
 
 use Doctrine\ORM\EntityManagerInterface;
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
-use GepurIt\ErpTaskBundle\Entity\CallTaskMark;
+use GepurIt\ErpTaskBundle\Entity\TaskMark;
 use GepurIt\ErpTaskBundle\Exception\TaskMarkNotFoundException;
 use GepurIt\ErpTaskBundle\Repository\ErpTaskMarkRepository;
 
 /**
- * Class CurrentTaskSource
- * @package GepurIt\ErpTaskBundle\CallTask
+ * Class TaskMarker
+ * @package GepurIt\ErpTaskBundle\TaskMarker
  */
-class CurrentTaskMarker implements CurrentTaskMarkerInterface
+class TaskMarker implements TaskMarkerInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -29,10 +29,10 @@ class CurrentTaskMarker implements CurrentTaskMarkerInterface
     /**
      * {@inheritdoc}
      */
-    public function getTaskMark(string $userId): ?CurrentTaskMarkInterface
+    public function getTaskMark(string $userId): ?TaskMarkInterface
     {
         /** @var ErpTaskMarkRepository $repository */
-        $repository = $this->entityManager->getRepository(CallTaskMark::class);
+        $repository = $this->entityManager->getRepository(TaskMark::class);
 
         return $repository->finOneByUserId($userId);
     }
@@ -40,13 +40,13 @@ class CurrentTaskMarker implements CurrentTaskMarkerInterface
     /**
      * {@inheritdoc}
      */
-    public function markTask(ErpTaskInterface $callTask, string $userId): CurrentTaskMarkInterface
+    public function markTask(ErpTaskInterface $callTask, string $userId): TaskMarkInterface
     {
-        $mark = new CallTaskMark(
+        $mark = new TaskMark(
             $callTask->getTaskId(),
             $callTask->getType(),
             $userId,
-            $callTask->getClientId()
+            $callTask->getGroupId()
         );
 
         $this->entityManager->persist($mark);
@@ -56,14 +56,14 @@ class CurrentTaskMarker implements CurrentTaskMarkerInterface
     }
 
     /**
-     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param ErpTaskInterface $callTask
      * @param bool                                              $unlock
      */
     public function unmarkTask(ErpTaskInterface $callTask, bool $unlock = true): void
     {
         /** @var ErpTaskMarkRepository $repository */
-        $repository = $this->entityManager->getRepository(CallTaskMark::class);
-        $mark       = $repository->findOne($callTask);
+        $repository = $this->entityManager->getRepository(TaskMark::class);
+        $mark       = $repository->findOneByTask($callTask);
 
         if (null === $mark) {
             return;
@@ -77,27 +77,27 @@ class CurrentTaskMarker implements CurrentTaskMarkerInterface
     }
 
     /**
-     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param ErpTaskInterface $callTask
      *
-     * @return CallTaskMark|null
+     * @return TaskMarkInterface|null
      */
-    public function getMarkByTask(ErpTaskInterface $callTask): ?CurrentTaskMarkInterface
+    public function getMarkByTask(ErpTaskInterface $callTask): ?TaskMarkInterface
     {
         /** @var ErpTaskMarkRepository $repository */
-        $repository = $this->entityManager->getRepository(CallTaskMark::class);
+        $repository = $this->entityManager->getRepository(TaskMark::class);
 
-        return $repository->findOneByTaskRelatively($callTask);
+        return $repository->findOneByTask($callTask);
     }
 
     /**
-     * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
+     * @param ErpTaskInterface $callTask
      * @param string                                            $userId
      */
     public function transferTaskMark(ErpTaskInterface $callTask, string $userId): void
     {
         /** @var ErpTaskMarkRepository $repository */
-        $repository = $this->entityManager->getRepository(CallTaskMark::class);
-        $mark       = $repository->findOne($callTask);
+        $repository = $this->entityManager->getRepository(TaskMark::class);
+        $mark       = $repository->findOneByTask($callTask);
 
         if (null === $mark) {
             throw new TaskMarkNotFoundException($callTask);
@@ -106,5 +106,18 @@ class CurrentTaskMarker implements CurrentTaskMarkerInterface
         $callTask->setLockedBy($userId);
 
         $mark->transferTo($userId);
+    }
+
+    /**
+     * @param string $groupKey
+     *
+     * @return TaskMarkInterface[]|iterable
+     */
+    public function getMarksByGroup(string $groupKey): iterable
+    {
+        /** @var ErpTaskMarkRepository $repository */
+        $repository = $this->entityManager->getRepository(TaskMark::class);
+
+        return $repository->findBy(['groupKey' => $groupKey]);
     }
 }

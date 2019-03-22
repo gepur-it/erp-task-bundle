@@ -10,8 +10,7 @@ use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 
 /**
  * Interface ConcreteTypeActionProcessorInterface
- * @package GepurIt\ErpTaskBundle\ActionProcessorRegistry
- */
+  */
 interface ActionProcessorInterface
 {
     /**

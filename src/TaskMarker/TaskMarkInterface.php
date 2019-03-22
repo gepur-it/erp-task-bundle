@@ -4,13 +4,12 @@
  * @since : 15.05.18
  */
 
-namespace GepurIt\ErpTaskBundle\CurrentTaskMarker;
+namespace GepurIt\ErpTaskBundle\TaskMarker;
 
 /**
  * Class CallTaskMarkerInterface
- * @package GepurIt\ErpTaskBundle\CallTask
  */
-interface CurrentTaskMarkInterface
+interface TaskMarkInterface
 {
     /**
      * @return string

@@ -7,17 +7,17 @@
 namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
+use GepurIt\ErpTaskBundle\TaskMarker\TaskMarkInterface;
 
 /**
  * Class TaskMark
  * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="call_task_mark",
+ *     name="erp_task_mark",
  *     indexes={
  *         @ORM\Index(name="user_id_idx", columns={"user_id"}),
- *         @ORM\Index(name="client_id_idx", columns={"client_id"})
+ *         @ORM\Index(name="group_key_idx", columns={"group_key"})
  *     }
  * )
  * @ORM\Entity(
@@ -25,7 +25,7 @@ use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkInterface;
  * )
  * @codeCoverageIgnore
  */
-class CallTaskMark implements CurrentTaskMarkInterface
+class TaskMark implements TaskMarkInterface
 {
     /**
      * @var string
@@ -49,11 +49,13 @@ class CallTaskMark implements CurrentTaskMarkInterface
     private $userId;
 
     /**
+     * Group key, used for selections and filters,
+     * like "client unique id" or something else
      * @var string
      *
-     * @ORM\Column(name="client_id", type="string", length=36, nullable=false)
+     * @ORM\Column(name="group_key", type="string", length=36, nullable=false)
      */
-    private $clientId = '';
+    private $groupKey = '';
 
     /**
      * @var \DateTime
@@ -66,14 +68,14 @@ class CallTaskMark implements CurrentTaskMarkInterface
      * @param string $taskId
      * @param string $taskType
      * @param string $userId
-     * @param string $clientId
+     * @param string $groupKey
      */
-    public function __construct(string $taskId, string $taskType, string $userId, string $clientId)
+    public function __construct(string $taskId, string $taskType, string $userId, string $groupKey)
     {
         $this->taskId   = $taskId;
         $this->taskType = $taskType;
         $this->userId   = $userId;
-        $this->clientId = $clientId;
+        $this->groupKey = $groupKey;
     }
 
     /**
@@ -95,9 +97,9 @@ class CallTaskMark implements CurrentTaskMarkInterface
     /**
      * @return string
      */
-    public function getClientId(): string
+    public function getGroupKey(): string
     {
-        return $this->clientId;
+        return $this->groupKey;
     }
 
     /**

@@ -1,8 +1,8 @@
 services:
-  GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarker:
+  GepurIt\ErpTaskBundle\TaskMarker\TaskMarker:
     autowire: true
-  GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface:
-    alias: GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarker
+  GepurIt\ErpTaskBundle\TaskMarker\TaskMarkerInterface:
+    alias: GepurIt\ErpTaskBundle\TaskMarker\TaskMarker
   GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider:
     autowire: true
     public: true
@@ -12,5 +12,3 @@ services:
     autowire: true
   GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessorInterface:
     alias: GepurIt\ErpTaskBundle\ActionProcessor\BaseActionProcessor
-  GepurIt\ErpTaskBundle\ActionProcessor\ActionProcessorRegistry:
-    autowire: true

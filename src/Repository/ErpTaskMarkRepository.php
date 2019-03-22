@@ -9,15 +9,15 @@ namespace GepurIt\ErpTaskBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
-use GepurIt\ErpTaskBundle\Entity\CallTaskMark;
+use GepurIt\ErpTaskBundle\TaskMarker\TaskMarkInterface;
 
 /**
  * Class CallTaskMarkRepository
  * @package GepurIt\ErpTaskBundle\Repository
- * @method CallTaskMark|null findOneBy(array $criteria, array $orderBy = null)
- * @method CallTaskMark|null find($id, $lockMode = null, $lockVersion = null)
- * @method CallTaskMark[] findAll()
- * @method CallTaskMark[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TaskMarkInterface|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TaskMarkInterface|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TaskMarkInterface[] findAll()
+ * @method TaskMarkInterface[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @codeCoverageIgnore
  */
 class ErpTaskMarkRepository extends EntityRepository
@@ -25,16 +25,16 @@ class ErpTaskMarkRepository extends EntityRepository
     /**
      * @param string $userId
      *
-     * @return null|CallTaskMark
+     * @return null|TaskMarkInterface
      */
-    public function finOneByUserId(string $userId): ?CallTaskMark
+    public function finOneByUserId(string $userId): ?TaskMarkInterface
     {
         $queryBuilder = $this->createQueryBuilder('callTaskMark')
             ->where('callTaskMark.userId = :userId')->setParameter('userId', $userId)
             ->setMaxResults(1)
             ->orderBy('callTaskMark.createdAt', 'ASC');
 
-        /** @var CallTaskMark[] $result */
+        /** @var TaskMarkInterface[] $result */
         $result = $queryBuilder->getQuery()->execute();
 
         if (!empty($result)) {
@@ -48,9 +48,9 @@ class ErpTaskMarkRepository extends EntityRepository
      * @param string $userId
      * @param string $taskType
      *
-     * @return CallTaskMark|null
+     * @return TaskMarkInterface|null
      */
-    public function finOneByUserIdAndTaskType(string $userId, string $taskType): ?CallTaskMark
+    public function finOneByUserIdAndTaskType(string $userId, string $taskType): ?TaskMarkInterface
     {
         $queryBuilder = $this->createQueryBuilder('callTaskMark')
             ->where('callTaskMark.userId = :userId')->setParameter('userId', $userId)
@@ -58,7 +58,7 @@ class ErpTaskMarkRepository extends EntityRepository
             ->setMaxResults(1)
             ->orderBy('callTaskMark.createdAt', 'ASC');
 
-        /** @var CallTaskMark[] $result */
+        /** @var TaskMarkInterface[] $result */
         $result = $queryBuilder->getQuery()->execute();
 
         if (!empty($result)) {
@@ -71,14 +71,14 @@ class ErpTaskMarkRepository extends EntityRepository
     /**
      * @return string[]
      */
-    public function getLockedClintIds(): array
+    public function getGroupKeys(): array
     {
         $queryBuilder = $this->createQueryBuilder('ctm')
-            ->select("ctm.clientId");
+            ->select("ctm.groupKey");
 
         $clients = $queryBuilder->getQuery()->getScalarResult();
 
-        $clientsIds = array_column($clients, 'clientId');
+        $clientsIds = array_column($clients, 'groupKey');
 
         return $clientsIds;
     }
@@ -86,14 +86,14 @@ class ErpTaskMarkRepository extends EntityRepository
     /**
      * @param \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface $callTask
      *
-     * @return CallTaskMark|null
+     * @return TaskMarkInterface|null
      */
-    public function findOneByTaskRelatively(ErpTaskInterface $callTask): ?CallTaskMark
+    public function findOneByTaskRelatively(ErpTaskInterface $callTask): ?TaskMarkInterface
     {
         $query = $this->createQueryBuilder('callTaskMark')
             ->where('callTaskMark.taskId = :taskId')
             ->setParameter('taskId', $callTask->getTaskId())
-            ->orWhere('callTaskMark.clientId = :clientId')->setParameter('clientId', $callTask->getClientId())
+            ->orWhere('callTaskMark.groupKey = :groupKey')->setParameter('groupKey', $callTask->getGroupId())
             ->setMaxResults(1)
             ->getQuery();
 
@@ -106,7 +106,12 @@ class ErpTaskMarkRepository extends EntityRepository
         return $mark;
     }
 
-    public function findOne(ErpTaskInterface $callTask)
+    /**
+     * @param ErpTaskInterface $callTask
+     *
+     * @return TaskMarkInterface|null
+     */
+    public function findOneByTask(ErpTaskInterface $callTask)
     {
         return $this->find(['taskId' => $callTask->getTaskId(), 'taskType' => $callTask->getType()]);
     }

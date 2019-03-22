@@ -10,13 +10,12 @@ namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
-use Yawa20\RegistryBundle\Registrable\RegistrableInterface;
 
 /**
  * Class TestSource
  * @package GepurIt\ErpTaskBundle\Tests\Stubs
  */
-class TestTaskProducer implements TaskProducerInterface, RegistrableInterface
+class TestTaskProducer implements TaskProducerInterface
 {
     /**
      * @return ErpTaskInterface|null
@@ -38,14 +37,6 @@ class TestTaskProducer implements TaskProducerInterface, RegistrableInterface
      * @return string
      */
     public function getName(): string
-    {
-        return 'test';
-    }
-
-    /**
-     * @return string
-     */
-    public function getKey(): string
     {
         return 'test';
     }

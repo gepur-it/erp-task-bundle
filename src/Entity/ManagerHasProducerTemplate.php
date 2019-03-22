@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="call_task_manager_has_template",
+ *     name="erp_task_manager_has_template",
  * )
  * @ORM\Entity()
  *

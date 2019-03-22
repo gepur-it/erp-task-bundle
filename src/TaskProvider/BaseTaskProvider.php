@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
-use GepurIt\ErpTaskBundle\CurrentTaskMarker\CurrentTaskMarkerInterface;
+use GepurIt\ErpTaskBundle\TaskMarker\TaskMarkerInterface;
 use GepurIt\ErpTaskBundle\Entity\ManagerHasTaskProducer;
 use GepurIt\ErpTaskBundle\Entity\ProducersTemplate;
 use GepurIt\ErpTaskBundle\Event\ErpTaskWasTakenEvent;
@@ -27,7 +27,7 @@ class BaseTaskProvider
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var CurrentTaskMarkerInterface */
+    /** @var TaskMarkerInterface */
     private $taskMarker;
 
     /** @var EventDispatcherInterface */
@@ -39,18 +39,18 @@ class BaseTaskProvider
     /**
      * CallTaskProvider constructor.
      *
-     * @param EntityManagerInterface        $entityManager
-     * @param CurrentTaskMarkerInterface    $taskMarker
-     * @param EventDispatcherInterface      $eventDispatcher
+     * @param EntityManagerInterface   $entityManager
+     * @param TaskMarkerInterface      $taskMarker
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        CurrentTaskMarkerInterface $taskMarker,
+        TaskMarkerInterface $taskMarker,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->entityManager    = $entityManager;
-        $this->taskMarker       = $taskMarker;
-        $this->eventDispatcher  = $eventDispatcher;
+        $this->entityManager   = $entityManager;
+        $this->taskMarker      = $taskMarker;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -58,7 +58,7 @@ class BaseTaskProvider
      *
      * @return TaskProducerInterface[]
      */
-    public function getUserTemplateSources(string $userId)
+    public function getUserTemplateProducers(string $userId)
     {
         /** @var ProducerTemplateRepository $repo */
         $repo     = $this->entityManager->getRepository(ProducersTemplate::class);
@@ -69,7 +69,7 @@ class BaseTaskProvider
         $result = [];
 
         foreach ($template->getRelations() as $relation) {
-            $result[] = $this->getTypeProvider($relation->getProducerType())->getProducer($relation->getProducerName());
+            $result[] = $this->getTaskProvider($relation->getProducerType())->getProducer($relation->getProducerName());
         }
 
         return $result;
@@ -80,7 +80,7 @@ class BaseTaskProvider
      *
      * @return TaskProducerInterface[]
      */
-    public function getSourcesByUserId(string $userId): array
+    public function getProducersByUserId(string $userId): array
     {
         /** @var ManagerHasProducerRepository $repository */
         $repository = $this->entityManager->getRepository(ManagerHasTaskProducer::class);
@@ -88,7 +88,7 @@ class BaseTaskProvider
 
         $result = [];
         foreach ($relations as $relation) {
-            $result[] = $this->getTypeProvider($relation->getProducerType())->getProducer($relation->getProducerName());
+            $result[] = $this->getTaskProvider($relation->getProducerType())->getProducer($relation->getProducerName());
         }
 
         return $result;
@@ -125,10 +125,10 @@ class BaseTaskProvider
      */
     public function determineNextTask(string $userId): ?ErpTaskInterface
     {
-        $sources = $this->getSourcesByUserId($userId);
+        $sources = $this->getProducersByUserId($userId);
 
         if (empty($sources)) {
-            $sources = $this->getUserTemplateSources($userId);
+            $sources = $this->getUserTemplateProducers($userId);
         }
 
         foreach ($sources as $source) {
@@ -149,8 +149,8 @@ class BaseTaskProvider
      */
     public function getConcreteTask(string $taskType, string $taskId)
     {
-        $concreteProvider = $this->getTypeProvider($taskType);
-        $callTask       = $concreteProvider->findTask($taskId);
+        $concreteProvider = $this->getTaskProvider($taskType);
+        $callTask         = $concreteProvider->findTask($taskId);
 
         return $callTask;
     }
@@ -168,18 +168,10 @@ class BaseTaskProvider
             return null;
         }
 
-        $provider = $this->getTypeProvider($mark->getType());
+        $provider = $this->getTaskProvider($mark->getType());
         $task     = $provider->findTask($mark->getTaskId());
 
         return $task;
-    }
-
-    /**
-     * @return TaskProviderInterface[]
-     */
-    public function getAllProviderTypes(): array
-    {
-        return $this->concreteTypeProviders;
     }
 
     /**
@@ -195,16 +187,40 @@ class BaseTaskProvider
      *
      * @return TaskProviderInterface
      */
-    public function getTypeProvider(string $type): ?TaskProviderInterface
+    public function getTaskProvider(string $type): ?TaskProviderInterface
     {
         return $this->concreteTypeProviders[$type];
     }
 
     /**
-     * @return TaskProviderInterface[]
+     * @return TaskProviderInterface[]|iterable
      */
-    public function getAllTypeProviders(): array
+    public function getTaskProviders(?callable $filter = null): iterable
     {
-        return $this->concreteTypeProviders;
+        if (null === $filter) {
+            $filter = function (TaskProviderInterface $provider) {
+                return true;
+            };
+        }
+        foreach ($this->concreteTypeProviders as $provider) {
+            if ($filter($provider)) {
+                yield $provider->getType() => $provider;
+            }
+        }
+    }
+
+    /**
+     * @param callable|null $providerFilter
+     * @param callable|null $sourceFilter
+     *
+     * @return TaskProducerInterface[]|iterable
+     */
+    public function getProducers(?callable $providerFilter = null, ?callable $sourceFilter = null): iterable
+    {
+        foreach ($this->getTaskProviders($providerFilter) as $provider) {
+            foreach ($provider->getProducers($sourceFilter) as $producer) {
+                yield $producer;
+            }
+        }
     }
 }

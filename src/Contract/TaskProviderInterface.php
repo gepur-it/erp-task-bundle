@@ -27,9 +27,11 @@ interface TaskProviderInterface
     public function findTask(string $taskId): ?ErpTaskInterface;
 
     /**
-     * @return TaskProducerInterface[]
+     * @param callable|null $filter
+     *
+     * @return TaskProducerInterface[]|iterable
      */
-    public function getProducers(): array;
+    public function getProducers(?callable $filter = null): iterable;
 
     /**
      * @param string $name

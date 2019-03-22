@@ -6,6 +6,7 @@
 
 namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
+use GepurIt\ErpTaskBundle\ActionProcessor\ActionProcessorInterface;
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
@@ -36,60 +37,30 @@ class ConcreteTestProvider implements TaskProviderInterface
     }
 
     /**
-     * @return array
+     * @param callable|null $filter
+     *
+     * @return TaskProducerInterface[]|iterable
      */
-    public function findAllOpenedTasks(): array
+    public function getProducers(?callable $filter = null): iterable
     {
-        // TODO: Implement findAllOpenedTasks() method.
         return [];
     }
 
     /**
-     * @param User $user
-     * @return array
+     * @param string $name
+     *
+     * @return TaskProducerInterface
      */
-    public function findOpenedByUser(User $user): array
-    {
-        // TODO: Implement findOpenedByUser() method.
-        return [];
-    }
-
-    /**
-     * @param User $user
-     * @return array
-     */
-    public function findLockedByUser(User $user): array
-    {
-        // TODO: Implement findLockedByUser() method.
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function findAllInProcess(): array
-    {
-        // TODO: Implement findAllInProcess() method.
-        return [];
-    }
-
-    /**
-     * @param string $clientId
-     * @return array
-     */
-    public function findOpenedByClientId(string $clientId): array
-    {
-        // TODO: Implement findOpenedByClientId() method.
-        return [];
-    }
-
     public function getProducer(string $name): TaskProducerInterface
     {
-        // TODO: Implement getSource() method.
+        return new TestTaskProducer();
     }
 
-    public function getSources(): array
+    /**
+     * @return ActionProcessorInterface
+     */
+    public function getActionProcessor(): ActionProcessorInterface
     {
-        // TODO: Implement getSources() method.
+
     }
 }

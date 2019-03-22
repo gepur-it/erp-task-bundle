@@ -49,7 +49,7 @@ class ProducerToManagerRelationProvider
         $repository = $this->entityManager->getRepository(ManagerHasTaskProducer::class);
         /** @var ManagerHasTaskProducer[] $ManagerCTSRelations */
         $managerHasCTSs = $repository->findAll();
-        foreach ($this->taskProvider->getAllProviderTypes() as $provider) {
+        foreach ($this->taskProvider->getTaskProviders() as $provider) {
             foreach ($provider->getProducers() as $producer) {
                 $tempSource             = [];
                 $tempSource['name']     = $producer->getName();
@@ -121,7 +121,11 @@ class ProducerToManagerRelationProvider
 
             if (null === $relation) {
                 $relation =
-                    new ManagerHasTaskProducer($managerId, $relationToStore['producerName'], $relationToStore['producerType']);
+                    new ManagerHasTaskProducer(
+                        $managerId,
+                        $relationToStore['producerName'],
+                        $relationToStore['producerType']
+                    );
                 $this->entityManager->persist($relation);
             }
 

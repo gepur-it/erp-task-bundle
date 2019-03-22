@@ -25,7 +25,7 @@ interface ErpTaskInterface
     /**
      * @return string
      */
-    public function getClientId(): string;
+    public function getGroupId(): string;
 
     /**
      * @param string|null $userId
@@ -48,6 +48,11 @@ interface ErpTaskInterface
     public function getStatus(): string;
 
     /**
+     * @param string $status
+     */
+    public function setStatus(string $status);
+
+    /**
      * @return \DateTime
      */
     public function getStartAt(): \DateTime;
@@ -66,9 +71,4 @@ interface ErpTaskInterface
      * @return \DateTime|null
      */
     public function getCreatedAt(): ?\DateTime;
-
-    /**
-     * @param string $status
-     */
-    public function setStatus(string $status);
 }

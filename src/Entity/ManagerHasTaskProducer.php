@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class SourceToUserRelation
  * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Table(name="call_task_manager_has_cts")
+ * @ORM\Table(name="erp_task_manager_has_producer")
  * @ORM\Entity(repositoryClass="\GepurIt\ErpTaskBundle\Repository\ManagerHasProducerRepository")
  * @codeCoverageIgnore
  */

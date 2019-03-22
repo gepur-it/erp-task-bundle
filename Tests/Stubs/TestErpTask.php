@@ -58,7 +58,7 @@ class TestErpTask implements ErpTaskInterface
     /**
      * @return string
      */
-    public function getClientId(): string
+    public function getGroupId(): string
     {
         return $this->clientId;
     }

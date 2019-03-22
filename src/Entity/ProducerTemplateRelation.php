@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class ProducerTemplateRelation
  * @package GepurIt\ErpTaskBundle\Entity
  * @ORM\Table(
- *     name="call_task_template_relation",
+ *     name="erp_task_template_relation",
  *     indexes={
  *          @ORM\Index(name="priority_idx", columns={"priority"})
  *     }
