@@ -193,7 +193,7 @@ class BaseTaskProvider
     }
 
     /**
-     * @return TaskProviderInterface[]|iterable
+     * @return TaskProviderInterface[]|\Generator
      */
     public function getTaskProviders(?callable $filter = null): iterable
     {
@@ -213,7 +213,7 @@ class BaseTaskProvider
      * @param callable|null $providerFilter
      * @param callable|null $sourceFilter
      *
-     * @return TaskProducerInterface[]|iterable
+     * @return TaskProducerInterface[]|\Generator
      */
     public function getProducers(?callable $providerFilter = null, ?callable $sourceFilter = null): iterable
     {

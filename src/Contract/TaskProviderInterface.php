@@ -29,7 +29,7 @@ interface TaskProviderInterface
     /**
      * @param callable|null $filter
      *
-     * @return TaskProducerInterface[]|iterable
+     * @return TaskProducerInterface[]|\Generator
      */
     public function getProducers(?callable $filter = null): iterable;
 
