@@ -30,4 +30,9 @@ class ProcessActionException extends CallTaskException
     {
         return $this->errors;
     }
+
+    public function setErrors(array $errors)
+    {
+        $this->errors = $errors;
+    }
 }
