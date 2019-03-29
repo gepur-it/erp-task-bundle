@@ -118,6 +118,6 @@ class TaskMarker implements TaskMarkerInterface
         /** @var ErpTaskMarkRepository $repository */
         $repository = $this->entityManager->getRepository(TaskMark::class);
 
-        return $repository->findBy(['groupKey' => $groupKey]);
+        yield from $repository->findBy(['groupKey' => $groupKey]);
     }
 }
