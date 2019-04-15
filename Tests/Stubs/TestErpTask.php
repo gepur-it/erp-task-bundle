@@ -80,9 +80,10 @@ class TestErpTask implements ErpTaskInterface
     }
 
     /**
+     * @param string|null $userId
      * @return array
      */
-    public function getAvailableActions(): array
+    public function getAvailableActions(?string $userId): array
     {
         return [];
     }

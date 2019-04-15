@@ -38,9 +38,10 @@ interface ErpTaskInterface
     public function getLockedBy(): ?string;
 
     /**
+     * @param string|null $userId
      * @return array
      */
-    public function getAvailableActions(): array;
+    public function getAvailableActions(?string $userId): array;
 
     /**
      * @return string
