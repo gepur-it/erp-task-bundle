@@ -44,4 +44,20 @@ interface TaskProviderInterface
      * @return ActionProcessorInterface
      */
     public function getActionProcessor(): ActionProcessorInterface;
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @param callable|null $filter
+     * @return ErpTaskInterface[]\Generator
+     */
+    public function listOpenedTasks($limit = -1, $offset = 0, ?callable $filter=null): iterable;
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @param callable|null $filter
+     * @return ErpTaskInterface[]|\Generator
+     */
+    public function listAllTasks($limit = -1, $offset = 0, ?callable $filter=null): iterable;
 }

@@ -10,7 +10,6 @@ use GepurIt\ErpTaskBundle\ActionProcessor\ActionProcessorInterface;
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
-use GepurIt\User\Security\User;
 
 /**
  * Class ConcreteTestProvider
@@ -62,5 +61,21 @@ class ConcreteTestProvider implements TaskProviderInterface
     public function getActionProcessor(): ActionProcessorInterface
     {
 
+    }
+
+    /**
+     * @return ErpTaskInterface[]
+     */
+    public function listOpenedTasks($limit = -1, $offset = 0, ?callable $filter = null): iterable
+    {
+        yield from [];
+    }
+
+    /**
+     * @return ErpTaskInterface[]|\Generator
+     */
+    public function listAllTasks($limit = -1, $offset = 0, ?callable $filter = null): iterable
+    {
+        yield from [];
     }
 }
