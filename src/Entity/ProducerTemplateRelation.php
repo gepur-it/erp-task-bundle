@@ -94,9 +94,9 @@ class ProducerTemplateRelation
     }
 
     /**
-     * @return string
+     * @return ProducersTemplate
      */
-    public function getTemplate(): string
+    public function getTemplate(): ProducersTemplate
     {
         return $this->template;
     }

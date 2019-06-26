@@ -6,8 +6,6 @@
 
 namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
-use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
-
 /**
  * Class ActionInterface
  */
@@ -19,7 +17,7 @@ interface ActionInterface
     public function getActionId():string;
 
     /**
-     * @return ErpTaskInterface
+     * @return string
      */
     public function getTaskId(): string;
 
@@ -74,7 +72,7 @@ interface ActionInterface
 
     /**
      * @param string $key
-     * @param $value
+     * @param mixed $value
      */
     public function setParameter(string $key, $value): void;
 

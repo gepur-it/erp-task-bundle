@@ -31,12 +31,4 @@ class UnprocessableActionEntityException extends ProcessActionException
 
         parent::__construct('Unprocessable Action Entity', 422, null);
     }
-
-    /**
-     * @return array
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
-    }
 }

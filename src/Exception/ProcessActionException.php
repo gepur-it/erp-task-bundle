@@ -16,6 +16,9 @@ use Throwable;
  */
 class ProcessActionException extends CallTaskException
 {
+    /**
+     * @var array|null
+     */
     protected $errors = null;
 
     public function __construct(string $message = "", int $code = 422, Throwable $previous = null)
@@ -31,7 +34,10 @@ class ProcessActionException extends CallTaskException
         return $this->errors;
     }
 
-    public function setErrors(array $errors)
+    /**
+     * @param array $errors
+     */
+    public function setErrors(array $errors): void
     {
         $this->errors = $errors;
     }

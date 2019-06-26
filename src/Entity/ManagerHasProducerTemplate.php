@@ -78,7 +78,7 @@ class ManagerHasProducerTemplate
     /**
      * @param ProducersTemplate $template
      */
-    public function setTemplate(ProducersTemplate $template)
+    public function setTemplate(ProducersTemplate $template): void
     {
         $this->template = $template;
     }

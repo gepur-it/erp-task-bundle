@@ -109,10 +109,7 @@ class BaseTaskProvider
         $nextTask = $this->determineNextTask($userId);
 
         if (null !== $nextTask) {
-            $this->eventDispatcher->dispatch(
-                ErpTaskWasTakenEvent::EVENT_NAME,
-                new ErpTaskWasTakenEvent($nextTask, $userId)
-            );
+            $this->eventDispatcher->dispatch(new ErpTaskWasTakenEvent($nextTask, $userId));
         }
 
         return $nextTask;
@@ -177,7 +174,7 @@ class BaseTaskProvider
     /**
      * @param TaskProviderInterface $taskProvider
      */
-    public function registerProvider(TaskProviderInterface $taskProvider)
+    public function registerProvider(TaskProviderInterface $taskProvider): void
     {
         $this->concreteTypeProviders[$taskProvider->getType()] = $taskProvider;
     }
@@ -187,18 +184,19 @@ class BaseTaskProvider
      *
      * @return TaskProviderInterface
      */
-    public function getTaskProvider(string $type): ?TaskProviderInterface
+    public function getTaskProvider(string $type): TaskProviderInterface
     {
         return $this->concreteTypeProviders[$type];
     }
 
     /**
+     * @param callable|null $filter
      * @return TaskProviderInterface[]|\Generator
      */
     public function getTaskProviders(?callable $filter = null): iterable
     {
         if (null === $filter) {
-            $filter = function (TaskProviderInterface $provider) {
+            $filter = function (TaskProviderInterface $provider): bool {
                 return true;
             };
         }

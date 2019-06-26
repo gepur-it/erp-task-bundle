@@ -22,7 +22,7 @@ class ConcreteTypeProviderPass implements CompilerPassInterface
      *
      * @throws \Exception
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(BaseTaskProvider::class)) {
             return;

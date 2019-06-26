@@ -54,7 +54,7 @@ class ProducersTemplate
     private $name = '';
 
     /**
-     * @var ArrayCollection|ProducerTemplateRelation[]
+     * @var ArrayCollection
      * @ORM\OneToMany(
      *     targetEntity="GepurIt\ErpTaskBundle\Entity\ProducerTemplateRelation",
      *     mappedBy="template",
@@ -65,7 +65,7 @@ class ProducersTemplate
     private $relations;
 
     /**
-     * @var ArrayCollection|ManagerHasProducerTemplate[]
+     * @var ArrayCollection
      * @ORM\OneToMany(
      *     targetEntity="ManagerHasProducerTemplate",
      *     mappedBy="template",
@@ -97,7 +97,7 @@ class ProducersTemplate
     }
 
     /**
-     * @param ArrayCollection|ProducerTemplateRelation[] $relations
+     * @param ArrayCollection $relations
      */
     public function setRelations(ArrayCollection $relations): void
     {
@@ -107,7 +107,7 @@ class ProducersTemplate
     /**
      * @param ProducerTemplateRelation $relation
      */
-    public function addRelation(ProducerTemplateRelation $relation)
+    public function addRelation(ProducerTemplateRelation $relation): void
     {
         $this->relations->add($relation);
     }
@@ -115,7 +115,7 @@ class ProducersTemplate
     /**
      * @param ProducerTemplateRelation $relation
      */
-    public function removeRelation(ProducerTemplateRelation $relation)
+    public function removeRelation(ProducerTemplateRelation $relation): void
     {
         $this->relations->removeElement($relation);
     }

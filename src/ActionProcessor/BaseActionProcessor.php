@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class BaseActionProcessor implements BaseActionProcessorInterface
 {
-    /** @var \GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider */
+    /** @var BaseTaskProvider */
     private $callTaskProvider;
 
     /** @var TaskMarkerInterface */
@@ -64,7 +64,7 @@ class BaseActionProcessor implements BaseActionProcessorInterface
      * @throws ProcessActionException\ActionNotAvailableException
      * @throws ProcessActionException\TaskNotFoundException
      *
-     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|null
+     * @return ErpTaskInterface
      */
     public function processAction(
         string $action,

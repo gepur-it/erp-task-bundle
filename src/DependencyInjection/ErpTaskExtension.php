@@ -25,7 +25,7 @@ class ErpTaskExtension extends Extension
      * {@inheritdoc}
      * @throws \Exception
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $container->registerForAutoconfiguration(TaskProviderInterface::class)
             ->addTag(self::CONCRETE_PROVIDER_TAG);

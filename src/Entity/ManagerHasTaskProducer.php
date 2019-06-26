@@ -62,8 +62,8 @@ class ManagerHasTaskProducer
      * SourceToUserRelation constructor.
      *
      * @param string $userId
-     * @param string $sourceName
-     * @param string $sourceType
+     * @param string $producerName
+     * @param string $producerType
      */
     public function __construct(string $userId, string $producerName, string $producerType)
     {
@@ -137,7 +137,7 @@ class ManagerHasTaskProducer
     }
 
     /**
-     * @param string $sourceType
+     * @param string $producerType
      */
     public function setProducerType(string $producerType): void
     {

@@ -113,7 +113,7 @@ class TaskMark implements TaskMarkInterface
     /**
      * @ORM\PrePersist()
      */
-    public function prePersist()
+    public function prePersist(): void
     {
         $this->createdAt = new \DateTime();
     }
@@ -128,6 +128,7 @@ class TaskMark implements TaskMarkInterface
 
     /**
      * @param string $userId
+     * @throws \Exception
      */
     public function transferTo(string $userId): void
     {

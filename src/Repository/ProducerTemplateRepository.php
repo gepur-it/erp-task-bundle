@@ -7,7 +7,6 @@
 namespace GepurIt\ErpTaskBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use GepurIt\ErpTaskBundle\Entity\ProducersTemplate;
 
 /**
@@ -28,15 +27,10 @@ class ProducerTemplateRepository extends EntityRepository
             ->where('source_template.default = :isDefault')->setParameter('isDefault', true)
             ->setMaxResults(1);
 
-        try {
-            /** @var  ProducersTemplate $result */
-            $result = $queryBuilder->getQuery()->getOneOrNullResult();
-        } catch (NonUniqueResultException $exception) {
-            //impossible case, cuz we use setMaxResults(1)
-            return null;
-        }
+        /** @var  ProducersTemplate[] $result */
+        $result = $queryBuilder->getQuery()->execute();
 
-        return $result;
+        return array_shift($result);
     }
 
     /**
@@ -54,14 +48,9 @@ class ProducerTemplateRepository extends EntityRepository
             ->setMaxResults(1)
             ->getQuery();
 
-        /** @var ProducersTemplate|null $result */
-        try {
-            $result = $query->getOneOrNullResult();
-        } catch (NonUniqueResultException $e) {
-            //impossible case, cuz we use setMaxResults(1)
-            return null;
-        }
+        /** @var  ProducersTemplate[] $result */
+        $result = $query->execute();
 
-        return $result;
+        return array_shift($result);
     }
 }

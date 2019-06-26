@@ -41,7 +41,7 @@ interface ErpTaskInterface
      * @param string|null $userId
      * @return array
      */
-    public function getAvailableActions(?string $userId): array;
+    public function getAvailableActions(?string $userId = null): array;
 
     /**
      * @return string
