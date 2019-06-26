@@ -3,7 +3,7 @@
     "description": "Erp task bundle",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "1.1.5",
+    "version": "4.3.0",
     "keywords": [
       "gepur",
       "symfony",
