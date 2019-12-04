@@ -3,7 +3,7 @@
     "description": "Erp task bundle",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "4.3.0",
+    "version": "5.0.0",
     "keywords": [
       "gepur",
       "symfony",
@@ -13,13 +13,13 @@
     "homepage": "https://github.com/gepur-it/erp-task-bundle",
     "require": {
         "php": "^7.2",
-        "symfony/validator": "^4.3",
-        "symfony/doctrine-bridge": "^4.3",
-        "doctrine/orm": "^2.6",
-        "symfony/dependency-injection": "^4.3",
-        "symfony/config": "^4.3",
-        "symfony/event-dispatcher": "^4.3",
-        "symfony/http-kernel": "^4.3"
+        "symfony/validator": "^4.3|^5.0",
+        "symfony/doctrine-bridge": "^4.3|^5.0",
+        "doctrine/orm": ">=2.6",
+        "symfony/dependency-injection": "^4.3|^5.0",
+        "symfony/config": "^4.3|^5.0",
+        "symfony/event-dispatcher": "^4.3|^5.0",
+        "symfony/http-kernel": "^4.3|^5.0"
     },
     "require-dev": {
     },
