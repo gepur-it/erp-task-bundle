@@ -57,13 +57,13 @@ class TaskMarker implements TaskMarkerInterface
 
     /**
      * @param ErpTaskInterface $callTask
-     * @param bool                                              $unlock
+     * @param bool $unlock
      */
     public function unmarkTask(ErpTaskInterface $callTask, bool $unlock = true): void
     {
         /** @var ErpTaskMarkRepository $repository */
         $repository = $this->entityManager->getRepository(TaskMark::class);
-        $mark       = $repository->findOneByTask($callTask);
+        $mark = $repository->findOneByTask($callTask);
 
         if (null === $mark) {
             return;
@@ -91,13 +91,13 @@ class TaskMarker implements TaskMarkerInterface
 
     /**
      * @param ErpTaskInterface $callTask
-     * @param string                                            $userId
+     * @param string $userId
      */
     public function transferTaskMark(ErpTaskInterface $callTask, string $userId): void
     {
         /** @var ErpTaskMarkRepository $repository */
         $repository = $this->entityManager->getRepository(TaskMark::class);
-        $mark       = $repository->findOneByTask($callTask);
+        $mark = $repository->findOneByTask($callTask);
 
         if (null === $mark) {
             throw new TaskMarkNotFoundException($callTask);
@@ -119,5 +119,18 @@ class TaskMarker implements TaskMarkerInterface
         $repository = $this->entityManager->getRepository(TaskMark::class);
 
         yield from $repository->findBy(['groupKey' => $groupKey]);
+    }
+
+    /**
+     * @param string $userId
+     * @param string $groupKey
+     * @return TaskMarkInterface[]|\Generator
+     */
+    public function getMarksByGroupAndUserId(string $userId, string $groupKey): iterable
+    {
+        /** @var ErpTaskMarkRepository $repository */
+        $repository = $this->entityManager->getRepository(TaskMark::class);
+
+        yield from $repository->findBy(['userId' => $userId, 'groupKey' => $groupKey]);
     }
 }

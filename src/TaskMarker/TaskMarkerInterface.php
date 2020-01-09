@@ -54,4 +54,11 @@ interface TaskMarkerInterface
      * @return TaskMarkInterface[]|\Generator
      */
     public function getMarksByGroup(string $groupKey): iterable;
+
+    /**
+     * @param string $userId
+     * @param string $groupKey
+     * @return TaskMarkInterface[]|\Generator
+     */
+    public function getMarksByGroupAndUserId(string $userId, string $groupKey): iterable;
 }
