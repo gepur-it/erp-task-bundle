@@ -95,7 +95,7 @@ class ProducerToManagerRelationProvider
         $repository      = $this->entityManager->getRepository(ManagerHasTaskProducer::class);
         $index           = array_map(
             function ($item) {
-                return $item['producerName'].'-'.$item['producerType'];
+                return $item['producerType'].'-'.$item['producerName'];
             },
             $relationsToStore
         );
