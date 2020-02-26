@@ -42,7 +42,7 @@ class ProducerTemplateRelation
 
     /**
      * @var int
-     * @ORM\Column(name="priority", type="string")
+     * @ORM\Column(name="priority", type="integer")
      */
     private $priority = 0;
 
