@@ -23,40 +23,40 @@ class ManagerHasTaskProducer
      * @ORM\Id
      * @ORM\Column(name="user_id", type="string", length=80, nullable=false)
      */
-    private $userId;
+    private string $userId = '';
 
     /**
      * @var string
      * @ORM\Column(name="producer_name", type="string", length=40, nullable=false)
      * @ORM\Id
      */
-    private $producerName;
+    private string $producerName = '';
 
     /**
      * @var string
      * @ORM\Column(name="producer_type", type="string", length=40, nullable=false)
      * @ORM\Id
      */
-    private $producerType;
+    private string $producerType = '';
 
     /**
      * @var int
      * @ORM\Column(name="priority", type="integer", nullable=false)
      */
-    private $priority = 0;
+    private int $priority = 0;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      * @ORM\Column(name="updated_at", type="datetime")
      * @ORM\Version()
      */
-    private $updatedAt;
+    private ?\DateTime $updatedAt = null;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    private ?\DateTime $createdAt = null;
 
     /**
      * SourceToUserRelation constructor.

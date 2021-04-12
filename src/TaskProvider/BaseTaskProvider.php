@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 14.05.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\TaskProvider;
 
@@ -19,22 +20,17 @@ use GepurIt\ErpTaskBundle\Repository\ProducerTemplateRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class CallTaskProvider
- * @package ErpTaskBundle
+ * Class BaseTaskProvider
+ * @package GepurIt\ErpTaskBundle\TaskProvider
  */
 class BaseTaskProvider
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var TaskMarkerInterface */
-    private $taskMarker;
-
-    /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EntityManagerInterface $entityManager;
+    private TaskMarkerInterface $taskMarker;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @var TaskProviderInterface[] */
-    private $concreteTypeProviders = [];
+    private array $concreteTypeProviders = [];
 
     /**
      * CallTaskProvider constructor.
@@ -58,7 +54,7 @@ class BaseTaskProvider
      *
      * @return TaskProducerInterface[]
      */
-    public function getUserTemplateProducers(string $userId)
+    public function getUserTemplateProducers(string $userId): array
     {
         /** @var ProducerTemplateRepository $repo */
         $repo     = $this->entityManager->getRepository(ProducersTemplate::class);
@@ -88,7 +84,10 @@ class BaseTaskProvider
 
         $result = [];
         foreach ($relations as $relation) {
-            $result[] = $this->getTaskProvider($relation->getProducerType())->getProducer($relation->getProducerName());
+            $result[] = $this->getTaskProvider(
+                $relation->getProducerType())
+                ->getProducer($relation->getProducerName()
+                );
         }
 
         return $result;
@@ -144,12 +143,10 @@ class BaseTaskProvider
      *
      * @return ErpTaskInterface|null
      */
-    public function getConcreteTask(string $taskType, string $taskId)
+    public function getConcreteTask(string $taskType, string $taskId): ?ErpTaskInterface
     {
         $concreteProvider = $this->getTaskProvider($taskType);
-        $callTask         = $concreteProvider->findTask($taskId);
-
-        return $callTask;
+        return $concreteProvider->findTask($taskId);
     }
 
     /**
@@ -166,9 +163,7 @@ class BaseTaskProvider
         }
 
         $provider = $this->getTaskProvider($mark->getType());
-        $task     = $provider->findTask($mark->getTaskId());
-
-        return $task;
+        return $provider->findTask($mark->getTaskId());
     }
 
     /**

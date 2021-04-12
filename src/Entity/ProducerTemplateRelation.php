@@ -31,7 +31,7 @@ class ProducerTemplateRelation
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $producerName;
+    private string $producerName;
 
     /**
      * @var string
@@ -39,13 +39,13 @@ class ProducerTemplateRelation
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $producerType;
+    private string $producerType;
 
     /**
      * @var int
      * @ORM\Column(name="priority", type="integer")
      */
-    private $priority = 0;
+    private int $priority = 0;
 
     /**
      * @var ProducersTemplate
@@ -54,7 +54,7 @@ class ProducerTemplateRelation
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $template;
+    private ProducersTemplate $template;
 
     /**
      * ProducerTemplateRelation constructor.

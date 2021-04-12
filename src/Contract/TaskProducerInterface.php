@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 14.05.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Contract;
 
@@ -13,7 +14,7 @@ namespace GepurIt\ErpTaskBundle\Contract;
 interface TaskProducerInterface
 {
     /**
-     * @return \GepurIt\ErpTaskBundle\Contract\ErpTaskInterface|null
+     * @return ErpTaskInterface|null
      */
     public function getNext(): ?ErpTaskInterface;
 

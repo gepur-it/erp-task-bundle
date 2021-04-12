@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 25.07.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\DependencyInjection\Compiler;
 
@@ -32,7 +33,7 @@ class ConcreteTypeProviderPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds(ErpTaskExtension::CONCRETE_PROVIDER_TAG);
 
         foreach (array_keys($taggedServices) as $key) {
-            $concreteProvider = $container->getDefinition($key);
+            $concreteProvider = $container->getDefinition((string)$key);
             $provider->addMethodCall('registerProvider', [$concreteProvider]);
         }
     }

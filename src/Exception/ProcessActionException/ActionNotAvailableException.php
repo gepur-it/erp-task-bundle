@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 26.02.19
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
@@ -14,20 +15,9 @@ use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
  */
 class ActionNotAvailableException extends ProcessActionException
 {
-    /**
-     * @var string
-     */
-    private $taskType;
-
-    /**
-     * @var string
-     */
-    private $taskId;
-
-    /**
-     * @var string
-     */
-    private $action;
+    private string $taskType;
+    private string $taskId;
+    private string $action;
 
     /**
      * ActionNotAvailableException constructor.
@@ -38,10 +28,10 @@ class ActionNotAvailableException extends ProcessActionException
      */
     public function __construct(string $action, string $taskType, string $taskId)
     {
-        parent::__construct("Action {$action} is not available for task {$taskType}:{$taskId}", 403);
         $this->taskType = $taskType;
         $this->taskId   = $taskId;
         $this->action   = $action;
+        parent::__construct("Action {$action} is not available for task {$taskType}:{$taskId}", 403);
     }
 
     /**

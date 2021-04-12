@@ -13,17 +13,17 @@ use GepurIt\ErpTaskBundle\Contract\TaskProducerInterface;
 use GepurIt\ErpTaskBundle\Contract\TaskProviderInterface;
 
 /**
- * Class ConcreteTestProvider
+ * Class ConcreteTestNullProvider
  * @package GepurIt\ErpTaskBundle\Tests\Stubs
  */
-class ConcreteTestProvider implements TaskProviderInterface
+class ConcreteTestNullProvider implements TaskProviderInterface
 {
     /**
      * @return string
      */
     public function getType(): string
     {
-        return 'test';
+        return 'testNull';
     }
 
     /**
@@ -44,8 +44,7 @@ class ConcreteTestProvider implements TaskProviderInterface
     public function getProducers(?callable $filter = null): iterable
     {
         return [
-            'test' => $this->getProducer('test'),
-            'testNull' => new TestProducerNullNext()
+            'testNull' => $this->getProducer('testNull')
         ];
     }
 
@@ -56,7 +55,7 @@ class ConcreteTestProvider implements TaskProviderInterface
      */
     public function getProducer(string $name): TaskProducerInterface
     {
-        return new TestTaskProducer();
+        return new TestProducerNullNext();
     }
 
     /**

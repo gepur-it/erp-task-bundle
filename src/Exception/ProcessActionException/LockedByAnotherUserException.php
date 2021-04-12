@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 26.02.19
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
@@ -14,25 +15,10 @@ use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
  */
 class LockedByAnotherUserException extends ProcessActionException
 {
-    /**
-     * @var string
-     */
-    private $action;
-
-    /**
-     * @var string
-     */
-    private $taskType;
-
-    /**
-     * @var string
-     */
-    private $taskId;
-
-    /**
-     * @var string
-     */
-    private $userId;
+    private string $action;
+    private string $taskType;
+    private string $taskId;
+    private string $userId;
 
     /**
      * LockedByAnotherUserException constructor.
@@ -44,11 +30,11 @@ class LockedByAnotherUserException extends ProcessActionException
      */
     public function __construct(string $action, string $taskType, string $taskId, string $userId)
     {
-        parent::__construct("Action {$action} is for task {$taskType}:{$taskId} is locked by {$userId}", 409);
         $this->action = $action;
         $this->taskType = $taskType;
         $this->taskId = $taskId;
         $this->userId = $userId;
+        parent::__construct("Action {$action} is for task {$taskType}:{$taskId} is locked by {$userId}", 409);
 
         $this->errors = [
             [

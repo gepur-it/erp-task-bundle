@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 14.05.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Event;
 
@@ -22,11 +23,8 @@ class ErpTaskWasTakenEvent extends Event
      */
     const EVENT_NAME = self::class;
 
-    /** @var string */
-    private $userId;
-
-    /** @var ErpTaskInterface */
-    private $callTask;
+    private string $userId;
+    private ErpTaskInterface $callTask;
 
     /**
      * CallTaskWasTakenEvent constructor.

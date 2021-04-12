@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 26.02.19
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\ActionProcessor;
 
@@ -19,17 +20,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class BaseActionProcessor implements BaseActionProcessorInterface
 {
-    /** @var BaseTaskProvider */
-    private $callTaskProvider;
-
-    /** @var TaskMarkerInterface */
-    private $taskMarker;
-
-    /** @var ValidatorInterface */
-    private $validator;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    private BaseTaskProvider $callTaskProvider;
+    private TaskMarkerInterface $taskMarker;
+    private ValidatorInterface $validator;
+    private EntityManagerInterface $entityManager;
 
     /**
      * BaseActionProcessor constructor.

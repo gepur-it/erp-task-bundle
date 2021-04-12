@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 16.08.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Entity;
 
@@ -29,22 +30,22 @@ class ManagerHasProducerTemplate
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $managerId;
+    private string $managerId = '';
 
     /**
-     * @var ProducersTemplate
+     * @var ProducersTemplate|null
      * @ORM\ManyToOne(targetEntity="\GepurIt\ErpTaskBundle\Entity\ProducersTemplate", inversedBy="managerRelations")
      * @ORM\JoinColumn(name="template", referencedColumnName="name")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $template;
+    private ?ProducersTemplate $template = null;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $createdAt;
+    private ?\DateTime $createdAt = null;
 
     /**
      * ManagerHasProducerTemplate constructor.

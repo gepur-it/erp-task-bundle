@@ -5,6 +5,7 @@
  * Date: 31.05.18
  * Time: 10:34
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
@@ -22,7 +23,7 @@ class TestTaskProducer implements TaskProducerInterface
      */
     public function getNext(): ?ErpTaskInterface
     {
-        return new TestErpTask('42');
+        return new TestErpTask('test42');
     }
 
     /**

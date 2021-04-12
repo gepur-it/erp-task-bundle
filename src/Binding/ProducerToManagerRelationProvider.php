@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 26.02.19
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Binding;
 
@@ -17,15 +18,8 @@ use GepurIt\ErpTaskBundle\TaskProvider\BaseTaskProvider;
  */
 class ProducerToManagerRelationProvider
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var BaseTaskProvider
-     */
-    private $taskProvider;
+    private EntityManagerInterface $entityManager;
+    private BaseTaskProvider $taskProvider;
 
     /**
      * TaskToManagerRelationProvider constructor.
@@ -42,7 +36,7 @@ class ProducerToManagerRelationProvider
     /**
      * @return array
      */
-    public function listSourcesWithManagers()
+    public function listSourcesWithManagers(): array
     {
         $result = [];
         /** @var ManagerHasProducerRepository $repository */
@@ -75,7 +69,7 @@ class ProducerToManagerRelationProvider
      *
      * @return ManagerHasTaskProducer[]
      */
-    public function getManagerCTS(string $userId)
+    public function getManagerCTS(string $userId): iterable
     {
         /** @var ManagerHasProducerRepository $repository */
         $repository = $this->entityManager->getRepository(ManagerHasTaskProducer::class);
@@ -85,11 +79,11 @@ class ProducerToManagerRelationProvider
 
     /**
      * @param string $managerId
-     * @param        $relationsToStore
+     * @param array  $relationsToStore
      *
      * @return array
      */
-    public function updateManagerCTS(string $managerId, array $relationsToStore)
+    public function updateManagerCTS(string $managerId, array $relationsToStore): iterable
     {
         /** @var ManagerHasProducerRepository $repository */
         $repository      = $this->entityManager->getRepository(ManagerHasTaskProducer::class);

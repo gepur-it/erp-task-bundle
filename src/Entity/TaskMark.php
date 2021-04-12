@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since: 15.05.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Entity;
 
@@ -33,20 +34,20 @@ class TaskMark implements TaskMarkInterface
      * @ORM\Column(name="task_id", type="guid", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $taskId;
+    private string $taskId;
 
     /**
      * @var string
      * @ORM\Id
      * @ORM\Column(name="task_type", type="string", length=40, nullable=false)
      */
-    private $taskType;
+    private string $taskType;
 
     /**
      * @var string
      * @ORM\Column(name="user_id", type="string", length=80, nullable=false)
      */
-    private $userId;
+    private string $userId;
 
     /**
      * Group key, used for selections and filters,
@@ -55,13 +56,13 @@ class TaskMark implements TaskMarkInterface
      *
      * @ORM\Column(name="group_key", type="string", length=36, nullable=false)
      */
-    private $groupKey = '';
+    private string $groupKey = '';
 
     /**
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $createdAt;
+    private ?\DateTime $createdAt = null;
 
     /**
      * TaskMark constructor.
@@ -103,9 +104,9 @@ class TaskMark implements TaskMarkInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }

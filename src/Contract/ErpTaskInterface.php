@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 14.05.18
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Contract;
 

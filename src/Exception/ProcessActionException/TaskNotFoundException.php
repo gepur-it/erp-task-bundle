@@ -3,6 +3,7 @@
  * @author: Andrii yakovlev <yawa20@gmail.com>
  * @since : 26.02.19
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Exception\ProcessActionException;
 
@@ -14,20 +15,9 @@ use GepurIt\ErpTaskBundle\Exception\ProcessActionException;
  */
 class TaskNotFoundException extends ProcessActionException
 {
-    /**
-     * @var string
-     */
-    private $taskType;
-
-    /**
-     * @var string
-     */
-    private $taskId;
-
-    /**
-     * @var string
-     */
-    private $action;
+    private string $taskType;
+    private string $taskId;
+    private string $action;
 
     /**
      * TaskNotFoundException constructor.

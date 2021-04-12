@@ -5,10 +5,12 @@
  * Date: 31.05.18
  * Time: 10:46
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Tests\Stubs;
 
 use GepurIt\ErpTaskBundle\Contract\ErpTaskInterface;
+use DateTime;
 
 /**
  * Class TestCallTask
@@ -18,17 +20,10 @@ class TestErpTask implements ErpTaskInterface
 {
     const TYPE = 'test';
 
-    /** @var string  */
-    private $taskId;
-
-    /** @var string  */
-    private $clientId = '';
-
-    /** @var \DateTime */
-    private $closedAt;
-
-    /** @var string|null */
-    private $lockedBy;
+    private string $taskId;
+    private string $clientId = 't';
+    private ?DateTime $closedAt = null;
+    private ?string $lockedBy = null;
 
     /**
      * TestCallTask constructor.
@@ -83,7 +78,7 @@ class TestErpTask implements ErpTaskInterface
      * @param string|null $userId
      * @return array
      */
-    public function getAvailableActions(?string $userId): array
+    public function getAvailableActions(?string $userId = null): array
     {
         return [];
     }

@@ -5,6 +5,7 @@
  * Date: 19.06.18
  * Time: 16:40
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Exception;
 

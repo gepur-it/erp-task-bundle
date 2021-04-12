@@ -7,6 +7,7 @@
 namespace GepurIt\ErpTaskBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,13 +37,13 @@ class ProducersTemplate
      * @ORM\Column(name="label", type="string", length=250)
      * @Assert\NotBlank()
      */
-    private $label = '';
+    private string $label;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean", name="is_default")
      */
-    private $default = false;
+    private bool $default = false;
 
     /**
      * @var string
@@ -51,10 +52,10 @@ class ProducersTemplate
      * @ORM\GeneratedValue(strategy="NONE")
      * @Assert\NotBlank()
      */
-    private $name = '';
+    private string $name;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Collection|ProducerTemplateRelation[]
      * @ORM\OneToMany(
      *     targetEntity="GepurIt\ErpTaskBundle\Entity\ProducerTemplateRelation",
      *     mappedBy="template",
@@ -62,17 +63,17 @@ class ProducersTemplate
      * )
      * @ORM\OrderBy({"priority" = "ASC"})
      */
-    private $relations;
+    private array|Collection|ArrayCollection $relations;
 
     /**
-     * @var ArrayCollection
+     * @var Collection|ArrayCollection|ManagerHasProducerTemplate[]
      * @ORM\OneToMany(
      *     targetEntity="ManagerHasProducerTemplate",
      *     mappedBy="template",
      *     cascade={"persist"}
      * )
      */
-    private $managerRelations;
+    private array|Collection|ArrayCollection $managerRelations;
 
     /**
      * ProducersTemplate constructor.
@@ -91,7 +92,7 @@ class ProducersTemplate
     /**
      * @return ArrayCollection|ProducerTemplateRelation[]
      */
-    public function getRelations()
+    public function getRelations(): ArrayCollection|Collection|array
     {
         return $this->relations;
     }
@@ -161,9 +162,9 @@ class ProducersTemplate
     }
 
     /**
-     * @return ArrayCollection|ManagerHasProducerTemplate[]
+     * @return Collection|ArrayCollection|ManagerHasProducerTemplate[]
      */
-    public function getManagerRelations()
+    public function getManagerRelations(): ArrayCollection|Collection|array
     {
         return $this->managerRelations;
     }

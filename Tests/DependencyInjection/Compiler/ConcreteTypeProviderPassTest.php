@@ -5,12 +5,14 @@
  * Date: 27.08.18
  * Time: 10:53
  */
+declare(strict_types=1);
 
 namespace GepurIt\ErpTaskBundle\Tests\DependencyInjection\Compiler;
 
 
 use GepurIt\ErpTaskBundle\DependencyInjection\Compiler\ConcreteTypeProviderPass;
 use GepurIt\ErpTaskBundle\Tests\Stubs\ConcreteTestProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -26,12 +28,14 @@ class ConcreteTypeProviderPassTest extends TestCase
      */
     public function testProcessNotProvider()
     {
-        /**@var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject $containerBuilder */
+        /**@var ContainerBuilder|MockObject $containerBuilder */
         $containerBuilder = $this->createMock(ContainerBuilder::class);
 
         $concreteTypeProviderPass = new ConcreteTypeProviderPass();
 
-        $containerBuilder->expects($this->once())
+        $containerBuilder->expects(
+            $this->once()
+        )
             ->method('has')
             ->willReturn(false);
 
@@ -43,11 +47,11 @@ class ConcreteTypeProviderPassTest extends TestCase
      */
     public function testProcess()
     {
-        /**@var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject $containerBuilder */
+        /**@var ContainerBuilder|MockObject $containerBuilder */
         $containerBuilder = $this->createMock(ContainerBuilder::class);
-        /**@var Definition|\PHPUnit_Framework_MockObject_MockObject $definition */
+        /**@var Definition|MockObject $definition */
         $definition = $this->createMock(Definition::class);
-        /**@var ConcreteTestProvider|\PHPUnit_Framework_MockObject_MockObject $concreteTestProvider */
+        /**@var ConcreteTestProvider|MockObject $concreteTestProvider */
         $concreteTestProvider = $this->createMock(ConcreteTestProvider::class);
 
         $concreteTypeProviderPass = new ConcreteTypeProviderPass();
