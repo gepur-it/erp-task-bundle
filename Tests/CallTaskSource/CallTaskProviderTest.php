@@ -75,7 +75,8 @@ class CallTaskProviderTest extends TestCase
         $managerHasCTS = $this->createMock(ManagerHasTaskProducer::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $entityManager->expects($this->at(0))
+        $entityManager->expects($this->exactly(1))
+            ->id('0')
             ->method('getRepository')
             ->with(ManagerHasTaskProducer::class)
             ->willReturn($hasCTSRepository);
@@ -112,14 +113,18 @@ class CallTaskProviderTest extends TestCase
         $sourceTemplate = $this->createMock(ProducersTemplate::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $entityManager->expects($this->at(0))
+
+        $entityManager->expects($this->exactly(2))
             ->method('getRepository')
-            ->with(ManagerHasTaskProducer::class)
-            ->willReturn($hasCTSRepository);
-        $entityManager->expects($this->at(1))
-            ->method('getRepository')
-            ->with(ProducersTemplate::class)
-            ->willReturn($templateRepository);
+            ->withConsecutive(
+                [ManagerHasTaskProducer::class],
+                [ProducersTemplate::class]
+            )
+            ->willReturnOnConsecutiveCalls(
+                $hasCTSRepository,
+                $templateRepository
+            )
+        ;
 
         $callTaskProvider = $this->createCallTaskProviderWithMockArgs([
             EntityManagerInterface::class => $entityManager
@@ -156,15 +161,18 @@ class CallTaskProviderTest extends TestCase
         $templateRelation = $this->createMock(ProducerTemplateRelation::class);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $entityManager->expects($this->at(0))
+
+        $entityManager->expects($this->exactly(2))
             ->method('getRepository')
-            ->with(ManagerHasTaskProducer::class)
-            ->willReturn($hasCTSRepository);
-        $entityManager->expects($this->exactly(1))
-            ->id('1')
-            ->method('getRepository')
-            ->with(ProducersTemplate::class)
-            ->willReturn($templateRepository);
+            ->withConsecutive(
+                [ManagerHasTaskProducer::class],
+                [ProducersTemplate::class]
+            )
+            ->willReturnOnConsecutiveCalls(
+                $hasCTSRepository,
+                $templateRepository
+            )
+        ;
 
         $hasCTSRepository->expects($this->once())
             ->method('findByUser')
